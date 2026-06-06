@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunter Davis — Industrial Design 2026 / V4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          base: '#1A1C1B', deep: '#222524', surface: '#353837', border: '#4A4D4B', accent: '#D4A24C',
+          'text-1': '#FAFAFA', 'text-2': '#A0A5A3', 'text-3': '#6B6660',
+          'cmf-gray': '#7F807D', 'cmf-maroon': '#24050B', 'cmf-teal': '#2E3532',
+        },
+        fontFamily: {
+          serif: ['"Instrument Serif"', 'Times New Roman', 'serif'],
+          sans: ['"DM Sans"', '-apple-system', 'sans-serif'],
+          mono: ['"Azeret Mono"', '"Courier New"', 'monospace'],
+        },
+      }
+    }
+  }
+</script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+const state = { view: 'home' };
+
+function navigate(view) {
+  state.view = view;
+  render();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function observeFades() {
+  const els = document.querySelectorAll('.fade-up');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  els.forEach(el => obs.observe(el));
+}
+
+function TopNav() {
+  const v = state.view;
+  const workActive = v === 'home' || v === 'ergodeck' || v === 'thermowave' || v === 'welded-stool' || v === 'kohler' || v === 'skullcandy' || v === 'cad-renders';
+  const aboutActive = v === 'about';
+  const resumeActive = v === 'resume';
+  return `
+    <header class="sticky top-0 z-50" style="background:rgba(26,28,27,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);">
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-10 py-4 flex items-center justify-between gap-4">
+        <a onclick="navigate('home')" class="flex items-center gap-3 cursor-pointer group">
+          <img src="assets/hd-logo.png" alt="Hunter Davis" class="nav-logo-img group-hover:opacity-80 transition-opacity">
+          <div class="hidden sm:block mono text-[10px] text-text-2 tracking-[0.2em] uppercase border-l border-border pl-3">IND. DESIGN · '26</div>
+        </a>
+        <nav class="flex items-center gap-5 md:gap-7 pl-2 md:pl-4 flex-wrap">
+          <a onclick="navigate('home')" class="nav-link ${workActive ? 'active' : ''}">Work</a>
+          <a onclick="navigate('about')" class="nav-link ${aboutActive ? 'active' : ''}">About</a>
+          <a onclick="navigate('resume')" class="nav-link ${resumeActive ? 'active' : ''}">Resume</a>
+        </nav>
+      </div>
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-3 flex items-center justify-between text-[10px] mono text-text-2 tracking-[0.15em] uppercase">
+        <div class="flex items-center gap-4">
+          <span class="flex items-center gap-2"><span class="pulse-dot"></span> ACTIVE</span>
+        </div>
+        <div class="hidden md:flex items-center gap-4">
+          <span class="nav-micro-hide">SCAD ID / '26</span>
+        </div>
+      </div>
+    </header>
+  `;
+}
+
+function Footer() {
+  return `
+    <footer class="border-t border-border mt-20">
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-10 py-10 grid md:grid-cols-3 gap-6 text-[11px] mono text-text-2 tracking-[0.15em] uppercase">
+        <div><div class="text-text-3 mb-1">© 2026</div><div>HUNTER DAVIS</div></div>
+        <div><div class="text-text-3 mb-1">CONTACT</div><div>hunterdavis.uas@gmail.com</div></div>
+        <div><div class="text-text-3 mb-1">AVAILABILITY</div><div class="text-accent">AVAILABLE · SUMMER 2026</div></div>
+      </div>
+    </footer>
+  `;
+}
+
+function CaseStudyBack() {
+  return `
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-8">
+      <a onclick="navigate('home')" class="backlink"><span>←</span><span>INDEX</span></a>
+    </div>
+  `;
+}
+
+const PROJECTS = [
+  { id: 'ergodeck',    title: 'ErgoDeck',      year: '2026', category: 'CAPSTONE · AUTOMOTIVE',    status: 'active',    descriptor: 'Professional-grade ergonomic creeper for home mechanics.', cover: 'assets/ergodeck-fig00.jpg' },
+  { id: 'welded-stool',title: 'Welded Stool',  year: '2024', category: 'FABRICATION · FURNITURE',  status: 'active',    descriptor: 'MIG-welded A513 steel tubing.', cover: 'assets/welded-stool-cover.jpg' },
+  { id: 'thermowave',  title: 'ThermoWave',    year: '2026', category: 'CULINARY · APPLIANCE',     status: 'active',    descriptor: 'Premium sous vide circulator.', cover: 'assets/thermowave-cover.jpg' },
+  { id: 'kohler',      title: 'Kohler',        year: '2025', category: 'SCADPRO · KITCHEN & BATH', status: 'nda-brief', descriptor: 'Project Manager · SCADpro sponsored studio.', cover: 'assets/kohler-hero.jpg' },
+  { id: 'skullcandy',  title: 'Skullcandy',    year: '2025', category: 'SCADPRO · CONSUMER ELEC.', status: 'nda-brief', descriptor: 'Industrial Designer · SCADpro sponsored studio.', cover: 'assets/skullcandy-cover.jpg' },
+  { id: 'cad-renders', title: 'CAD & Renders', year: '2024', category: 'GALLERY · VISUALIZATION',   status: 'gallery',   descriptor: 'SolidWorks / Rhino / KeyShot.', cover: 'assets/cad-renders-cover.jpg' },
+];
+
+function HomeView() {
+  return `
+    ${TopNav()}
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-14 pb-12">
+      <div class="fade-up">
+        <div class="mono text-[11px] text-accent tracking-[0.2em] uppercase mb-6">§ 00 · PORTFOLIO</div>
+        <h1 class="serif leading-[0.95] mb-8" style="font-size: clamp(48px, 7vw, 90px);">
+          <span class="italic">Industrial</span> design, built by hand.
+          <span class="block text-text-2">Problem-finding before problem-solving.</span>
+        </h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-4 border-t border-border mono text-[11px] tracking-[0.15em] uppercase">
+          <div class="pt-4"><div class="text-text-3 mb-1">DISCIPLINE</div><div>ERGONOMICS · DFM · FABRICATION</div></div>
+          <div class="pt-4"><div class="text-text-3 mb-1">DEPTH</div><div>SHOP · CAD · FIELD · WELD</div></div>
+          <div class="pt-4"><div class="text-text-3 mb-1">PROJECTS</div><div>06 INDEX · 03 LIVE · 02 NDA</div></div>
+        </div>
+        <div class="mt-6 mono text-[11px] text-accent tracking-[0.2em] uppercase">
+          AVAILABLE FOR HIRE
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-24">
+      <div class="flex items-end justify-between mb-6 fade-up">
+        <div>
+          <div class="mono text-[11px] text-accent tracking-[0.2em] uppercase mb-2">§ 01 · WORK</div>
+          <h2 class="serif text-4xl md:text-5xl"><span class="italic">Project</span> index</h2>
+        </div>
+        <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase text-right">
+          <div>06 PROJECTS · 03 LIVE · 02 NDA</div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        ${PROJECTS.map((p, i) => {
+          const clickable = p.status === 'active' || p.status === 'nda-brief' || p.status === 'gallery';
+          const isNda = p.status === 'nda-brief';
+          return `
+          <div class="group fade-up" style="transition-delay:${i * 60}ms;">
+            <a ${clickable ? `onclick="navigate('${p.id}')"` : ''}
+               class="proj-card ${isNda ? 'nda' : ''}" tabindex="0">
+              ${isNda ? '<div class="nda-banner"><span class="nda-dot"></span><span>UNDER NDA · BRIEF AVAILABLE ↗</span></div>' : ''}
+              <div class="img-slot mb-3" style="aspect-ratio: auto;">
+                ${p.cover ? `
+                  <img src="${p.cover}" alt="${p.title} — cover" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+                ` : `
+                  <div class="relative z-10 text-center px-3">
+                    <div class="serif italic text-6xl text-accent/25">${p.title.charAt(0)}</div>
+                  </div>
+                `}
+              </div>
+              <div class="flex items-center justify-between mb-1">
+                <h3 class="serif text-2xl text-text-1">${p.title}</h3>
+                <span class="card-tag">${p.year}</span>
+              </div>
+              <div class="card-tag">${p.category}</div>
+              <div class="mono text-[10px] text-text-3 tracking-[0.12em] uppercase mt-3 pt-3 border-t border-border">${p.descriptor}</div>
+            </a>
+          </div>
+        `;}).join('')}
+      </div>
+    </section>
+
+    ${Footer()}
+  `;
+}
+
+function AboutView() {
+  return `
+    ${TopNav()}
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-14 pb-10 fade-up">
+      <div class="mono text-[11px] text-accent tracking-[0.2em] uppercase mb-6">§ 02 · ABOUT</div>
+      <h1 class="serif text-6xl md:text-7xl leading-[0.95] max-w-4xl">
+        <span class="italic">Designer</span>, maker, fabricator.
+      </h1>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-16">
+      <div class="grid md:grid-cols-12 gap-6">
+        <div class="md:col-span-5 fade-up">
+          <div class="img-slot aspect-[4/5]">
+            <div class="relative z-10 text-center px-3">
+              <div class="serif italic text-7xl text-accent/20">HD</div>
+              <div class="mt-3">FIG.00 · PORTRAIT</div>
+            </div>
+          </div>
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.00</span> · PORTRAIT</span>
+            <span>SAVANNAH, GA</span>
+          </div>
+        </div>
+
+        <div class="md:col-span-7 fade-up" style="transition-delay:120ms;">
+          <div class="mono text-[11px] text-text-2 tracking-[0.2em] uppercase mb-6 pb-3 border-b border-border">BIO / 01</div>
+          <p class="serif text-2xl md:text-3xl leading-[1.35] text-text-1" style="font-weight:400;">
+            Industrial designer graduating from SCAD in 2026. I come to design from a fabrication background — mechatronics, MIG welding, coral aquaculture tanks — and I trust the shop floor more than the render. My work sits where ergonomics, material behavior, and manufacturing reality meet.
+          </p>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 pt-6 border-t border-border mono text-[10px] tracking-[0.15em] uppercase">
+            <div><div class="text-text-3 mb-1">EDU</div><div>SCAD / BFA '26</div></div>
+            <div><div class="text-text-3 mb-1">FOCUS</div><div>ERG · CMF · DFM</div></div>
+            <div><div class="text-text-3 mb-1">STATUS</div><div class="text-accent">SEEKING FT 2026</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-16">
+      <div class="rule mb-8"></div>
+      <div class="flex items-end justify-between mb-6">
+        <div>
+          <div class="mono text-[11px] text-accent tracking-[0.2em] uppercase mb-2">§ 03 · STACK</div>
+          <h2 class="serif text-4xl md:text-5xl"><span class="italic">Tools</span> & disciplines</h2>
+        </div>
+        <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase text-right hidden md:block">
+          <div>03 CATEGORIES</div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="border border-border p-6 fade-up">
+          <div class="flex items-baseline justify-between mb-4 pb-3 border-b border-border">
+            <div class="serif italic text-2xl text-accent">01</div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase">FABRICATION</div>
+          </div>
+          <ul class="space-y-2 text-sm text-text-1">
+            <li>Rapid prototyping</li>
+            <li>3D printing (FDM / SLA)</li>
+            <li>Foam modeling</li>
+            <li>Wood shop — all equipment</li>
+            <li>Metal shop — MIG, mill, plasma</li>
+          </ul>
+        </div>
+
+        <div class="border border-border p-6 fade-up" style="transition-delay:80ms;">
+          <div class="flex items-baseline justify-between mb-4 pb-3 border-b border-border">
+            <div class="serif italic text-2xl text-accent">02</div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase">CAD / RENDER</div>
+          </div>
+          <ul class="space-y-2 text-sm text-text-1">
+            <li>Rhino 3D</li>
+            <li>SolidWorks</li>
+            <li>KeyShot</li>
+            <li>Engineering drawings</li>
+            <li>Surface + solid modeling</li>
+          </ul>
+        </div>
+
+        <div class="border border-border p-6 fade-up" style="transition-delay:160ms;">
+          <div class="flex items-baseline justify-between mb-4 pb-3 border-b border-border">
+            <div class="serif italic text-2xl text-accent">03</div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase">DESIGN SOFTWARE</div>
+          </div>
+          <ul class="space-y-2 text-sm text-text-1">
+            <li>Adobe Creative Suite <span class="mono text-[9px] text-accent ml-1">CERT.</span></li>
+            <li>Figma</li>
+            <li>Midjourney</li>
+            <li>Claude AI</li>
+            <li>VisCom · Office</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-16 fade-up">
+      <div class="rule mb-8"></div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div>
+          <div class="mono text-[10px] text-text-3 tracking-[0.2em] uppercase mb-2">CERTIFICATIONS</div>
+          <div class="text-text-1 text-sm">FAA Part 107 Commercial Drone License</div>
+          <div class="text-text-1 text-sm mt-1">SCAD Wood &amp; Metal Shop</div>
+          <div class="text-text-1 text-sm mt-1">Adobe Photoshop / Lightroom</div>
+        </div>
+        <div>
+          <div class="mono text-[10px] text-text-3 tracking-[0.2em] uppercase mb-2">AWARDS</div>
+          <div class="text-text-1 text-sm">Finalist — 2024 SCAD Cotton Inc.</div>
+          <div class="text-text-1 text-sm mt-1">SCAD Achievement Honors Scholarship</div>
+        </div>
+        <div>
+          <div class="mono text-[10px] text-text-3 tracking-[0.2em] uppercase mb-2">INVOLVEMENT</div>
+          <div class="text-text-1 text-sm">Sec., SCAD Production Design Club</div>
+          <div class="text-text-1 text-sm mt-1">IDSA Member</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-24 fade-up">
+      <div class="rule mb-8"></div>
+      <div class="mono text-[11px] text-accent tracking-[0.2em] uppercase mb-4">§ 04 · SIDE</div>
+      <h2 class="serif text-4xl md:text-5xl mb-8"><span class="italic">Also</span> running</h2>
+
+      <a href="https://www.annapolisascent.com/" target="_blank" rel="noopener"
+         class="group block border border-border p-6 md:p-8 transition-all hover:border-accent hover:bg-deep">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <div class="mono text-[10px] text-text-3 tracking-[0.2em] uppercase mb-2">CO-FOUNDER · SIDE BUSINESS</div>
+            <div class="serif text-3xl md:text-4xl italic mb-2 group-hover:text-accent transition-colors">Annapolis Ascent</div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase">FIELD OPERATIONS</div>
+          </div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase flex items-center gap-2 pt-2 whitespace-nowrap">
+            <span>VISIT</span><span class="text-accent">↗</span>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    ${Footer()}
+  `;
+}
+
+function ResumeView() {
+  return `
+    ${TopNav()}
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-14 pb-6 fade-up">
+      <div class="flex items-end justify-between gap-6 flex-wrap">
+        <div>
+          <div class="mono text-[11px] text-accent tracking-[0.2em] uppercase mb-6">§ 05 · RESUME</div>
+          <h1 class="serif text-6xl md:text-7xl leading-[0.95]">
+            <span class="italic">Curriculum</span> vitae.
+          </h1>
+        </div>
+        <a href="Hunter_Davis_Resume_V6.pdf" download
+           class="inline-flex items-center gap-3 px-5 py-3 border border-accent text-accent mono text-[11px] tracking-[0.2em] uppercase hover:bg-accent hover:text-base transition-colors">
+          <span>↓</span><span>DOWNLOAD PDF</span>
+        </a>
+      </div>
+
+      <div class="mt-8 grid md:grid-cols-4 gap-4 pt-6 border-t border-border mono text-[10px] tracking-[0.15em] uppercase">
+        <div><div class="text-text-3 mb-1">NAME</div><div>HUNTER DAVIS</div></div>
+        <div><div class="text-text-3 mb-1">EMAIL</div><div class="break-all">hunterdavis.uas@gmail.com</div></div>
+        <div><div class="text-text-3 mb-1">PHONE</div><div>301.852.3843</div></div>
+        <div><div class="text-text-3 mb-1">FILE</div><div>V6 · 2026</div></div>
+      </div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-20">
+      <div class="grid md:grid-cols-12 gap-6 mt-10">
+
+        <aside class="md:col-span-4 fade-up">
+          <div class="resume-rail p-6">
+            <div class="img-slot aspect-square mb-6">
+              <img src="assets/hd-logo.png" alt="Hunter Davis" class="resume-logo-img">
+            </div>
+
+            <div class="mb-6">
+              <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-3 pb-2 border-b border-border">CONTACT</div>
+              <div class="text-sm space-y-1.5">
+                <div>301.852.3843</div>
+                <div class="break-all">hunterdavis.uas@gmail.com</div>
+                <div class="break-all text-text-2">linkedin.com/in/hunter-davis-30b15793</div>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-3 pb-2 border-b border-border">ACADEMIC</div>
+              <div class="mb-4">
+                <div class="text-sm font-semibold">BFA — Industrial Design</div>
+                <div class="text-sm text-text-2">Savannah College of Art and Design</div>
+                <div class="mono text-[10px] text-text-3 tracking-[0.15em] mt-1">2022 — 2026</div>
+              </div>
+              <div>
+                <div class="text-sm font-semibold">AAS — Mechatronics Eng. Tech.</div>
+                <div class="text-sm text-text-2">Anne Arundel Community College</div>
+                <div class="mono text-[10px] text-text-3 tracking-[0.15em] mt-1">2017 — 2020</div>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-3 pb-2 border-b border-border">SKILLS</div>
+              <div class="mb-4">
+                <div class="mono text-[9px] text-text-3 tracking-[0.2em] uppercase mb-1.5">FABRICATION</div>
+                <div class="text-[13px] leading-relaxed">Rapid prototyping, 3D printing, foam modeling, wood shop (all equipment), metal shop (MIG, mill, plasma cutting).</div>
+              </div>
+              <div class="mb-4">
+                <div class="mono text-[9px] text-text-3 tracking-[0.2em] uppercase mb-1.5">3D / RENDER</div>
+                <div class="text-[13px] leading-relaxed">Rhino 3D, SolidWorks, KeyShot.</div>
+              </div>
+              <div>
+                <div class="mono text-[9px] text-text-3 tracking-[0.2em] uppercase mb-1.5">DESIGN SOFTWARE</div>
+                <div class="text-[13px] leading-relaxed">Adobe CS (Photoshop &amp; Lightroom Certified), Figma, Office Suite, Midjourney, Claude AI, VisCom.</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-3 pb-2 border-b border-border">RECOGNITION</div>
+              <div class="text-[13px] space-y-2">
+                <div>FAA Part 107 Commercial Drone License</div>
+                <div>SCAD Wood &amp; Metal Shop Cert.</div>
+                <div class="pt-2 border-t border-border/50">Finalist — 2024 SCAD Cotton Inc.</div>
+                <div>SCAD Achievement Honors Scholarship</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <main class="md:col-span-8 fade-up" style="transition-delay:120ms;">
+          <div class="mb-10 pb-8 border-b border-border">
+            <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-3">SUMMARY</div>
+            <p class="serif text-xl md:text-2xl leading-[1.4] text-text-1">
+              Industrial Design senior with hands-on fabrication experience and mechatronics background. Experience creating immersive environments from concept through installation. Strong in ideation, prototyping, and translating designs into reality.
+            </p>
+          </div>
+
+          <div class="mb-6 flex items-end justify-between">
+            <div>
+              <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-2">PROFESSIONAL EXPERIENCE</div>
+              <h2 class="serif text-3xl italic">Work history</h2>
+            </div>
+            <div class="mono text-[10px] text-text-3 tracking-[0.15em] uppercase">05 ROLES</div>
+          </div>
+
+          <article class="py-6 border-t border-border">
+            <div class="flex items-baseline justify-between gap-4 flex-wrap mb-1">
+              <h3 class="serif text-2xl">Project Manager</h3>
+              <div class="mono text-[10px] text-accent tracking-[0.15em] uppercase">MAR 2025 — JUN 2025</div>
+            </div>
+            <div class="mono text-[11px] text-text-2 tracking-[0.15em] uppercase mb-3">KOHLER SCADpro · Savannah, GA</div>
+            <ul class="text-sm space-y-1.5 text-text-1 list-disc pl-5">
+              <li>Led cross-functional team through 10-week sprint.</li>
+              <li>Co-managed design strategy &amp; stakeholder presentations.</li>
+              <li>Oversaw prototype fabrication.</li>
+            </ul>
+          </article>
+
+          <article class="py-6 border-t border-border">
+            <div class="flex items-baseline justify-between gap-4 flex-wrap mb-1">
+              <h3 class="serif text-2xl">Industrial Designer</h3>
+              <div class="mono text-[10px] text-accent tracking-[0.15em] uppercase">JAN 2025 — MAR 2025</div>
+            </div>
+            <div class="mono text-[11px] text-text-2 tracking-[0.15em] uppercase mb-3">SKULLCANDY SCADpro · Savannah, GA</div>
+            <ul class="text-sm space-y-1.5 text-text-1 list-disc pl-5">
+              <li>Designed &amp; prototyped consumer electronics concepts.</li>
+              <li>Developed form languages, CAD models, renders.</li>
+            </ul>
+          </article>
+
+          <article class="py-6 border-t border-border">
+            <div class="flex items-baseline justify-between gap-4 flex-wrap mb-1">
+              <h3 class="serif text-2xl">Aquarium Designer &amp; Installer</h3>
+              <div class="mono text-[10px] text-accent tracking-[0.15em] uppercase">JUN 2019 — JUL 2022</div>
+            </div>
+            <div class="mono text-[11px] text-text-2 tracking-[0.15em] uppercase mb-3">FANTASEA AQUARIUMS</div>
+            <ul class="text-sm space-y-1.5 text-text-1 list-disc pl-5">
+              <li>Designed &amp; built immersive aquatic environments.</li>
+              <li>Managed concept → installation → integration.</li>
+              <li>Specialized in coral aquaculture life-support systems.</li>
+              <li>Balanced aesthetic vision with technical &amp; budget constraints.</li>
+            </ul>
+          </article>
+
+          <article class="py-6 border-t border-border">
+            <div class="flex items-baseline justify-between gap-4 flex-wrap mb-1">
+              <h3 class="serif text-2xl">Lab Technician</h3>
+              <div class="mono text-[10px] text-accent tracking-[0.15em] uppercase">2018 — 2021</div>
+            </div>
+            <div class="mono text-[11px] text-text-2 tracking-[0.15em] uppercase mb-3">LASR · Anne Arundel Community College</div>
+            <ul class="text-sm space-y-1.5 text-text-1 list-disc pl-5">
+              <li>Collaborated on robotics projects — mech &amp; electronic.</li>
+              <li>3D designed &amp; printed parts.</li>
+              <li>Fabricated &amp; assembled mechatronic systems.</li>
+            </ul>
+          </article>
+
+          <article class="py-6 border-t border-b border-border">
+            <div class="flex items-baseline justify-between gap-4 flex-wrap mb-1">
+              <h3 class="serif text-2xl">Project Associate</h3>
+              <div class="mono text-[10px] text-accent tracking-[0.15em] uppercase">2018 — SEP 2025</div>
+            </div>
+            <div class="mono text-[11px] text-text-2 tracking-[0.15em] uppercase mb-3">HD SQUARED ARCHITECTS</div>
+            <ul class="text-sm space-y-1.5 text-text-1 list-disc pl-5">
+              <li>Site surveys, architectural &amp; aerial photography.</li>
+              <li>Project documentation.</li>
+              <li>Executive assistant duties.</li>
+            </ul>
+          </article>
+
+        </main>
+      </div>
+
+      <div class="mt-10 pt-6 border-t border-border grid md:grid-cols-2 gap-6 fade-up">
+        <div>
+          <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-2">INVOLVEMENT</div>
+          <div class="text-sm">Secretary — SCAD Production Design Club</div>
+          <div class="text-sm mt-1">Industrial Designers Society of America (IDSA)</div>
+        </div>
+        <div class="md:text-right">
+          <a href="Hunter_Davis_Resume_V6.pdf" download
+             class="inline-flex items-center gap-3 px-5 py-3 border border-accent text-accent mono text-[11px] tracking-[0.2em] uppercase hover:bg-accent hover:text-base transition-colors">
+            <span>↓</span><span>DOWNLOAD FULL PDF</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    ${Footer()}
+  `;
+}
+
+// ErgoDeckView() is defined in the inlined ErgoDeck script block below
+// It returns the full 1920-wide absolute-positioned figma canvas.
+
+const THERMO_IMG = {
+  'Mood Board · Luxury Performance': 'assets/thermo-moodboard.png',
+  'SHEET A · SKETCH': 'assets/thermo-sketch-a.png',
+  'SHEET B · SKETCH': 'assets/thermo-sketch-b.png',
+  'CALLOUTS · RENDER': 'assets/thermo-callouts.png',
+  '3/4 VIEW · FOAM': 'assets/thermo-foam-34.png',
+  'FRONT · FOAM': 'assets/thermo-foam-front.png',
+  'IN-VESSEL · STOCKPOT': 'assets/thermo-invessel-stockpot.png',
+  'Bezel UI · Temp Mode': 'assets/thermo-bezel-ui.png',
+  'SILVER colorway': 'assets/thermo-cmf-silver.png',
+  'MAROON colorway': 'assets/thermo-cmf-maroon.png',
+  'COUNTERTOP · IN-CONTEXT': 'assets/thermo-countertop.png'
+};
+
+function ThermoWaveView() {
+  // Image placeholder helper — labeled slots for later injection via data-slot-label
+  const slot = (label, ratio) => {
+    const src = (typeof THERMO_IMG !== 'undefined') ? THERMO_IMG[label] : null;
+    if (src) {
+      return `<div class="img-slot" data-slot-label="ThermoWave — ${label}" style="aspect-ratio:${ratio};">
+        <img src="${src}" alt="ThermoWave — ${label}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1;">
+      </div>`;
+    }
+    return `<div class="img-slot" data-slot-label="ThermoWave — ${label}" style="aspect-ratio:${ratio};">
+      <div class="relative z-10 text-center px-3 mono text-[10px] leading-relaxed">[IMAGE — ${label}]</div>
+    </div>`;
+  };
+
+  return `
+    ${TopNav()}
+    ${CaseStudyBack()}
+
+    <!-- § 00 · HEADER ============================================== -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-10 pb-12 fade-up">
+      <div class="grid md:grid-cols-12 gap-6 items-end">
+        <div class="md:col-span-7">
+          <div class="mono text-[11px] text-accent tracking-[0.2em] uppercase mb-6">§ 00 · CULINARY · APPLIANCE</div>
+          <h1 class="serif text-6xl md:text-8xl leading-[0.9] mb-4">
+            <span class="italic">Thermo</span>Wave.
+          </h1>
+          <div class="serif text-xl md:text-2xl italic text-text-2 max-w-xl">
+            Premium sous vide circulator for sophisticated culinary enthusiasts.
+          </div>
+        </div>
+        <div class="md:col-span-5 mono text-[10px] tracking-[0.15em] uppercase">
+          <div class="spec-row"><div class="spec-key">ROLE</div><div class="spec-val">INDUSTRIAL DESIGNER · GROUP RESEARCH, SOLO DESIGN</div></div>
+          <div class="spec-row"><div class="spec-key">DURATION</div><div class="spec-val">10 WEEKS</div></div>
+          <div class="spec-row"><div class="spec-key">TOOLS</div><div class="spec-val">SOLIDWORKS · KEYSHOT · PROTOTYPING</div></div>
+          <div class="spec-row"><div class="spec-key">CONTEXT</div><div class="spec-val">IDUS-321 · SCAD</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-key">STATUS</div><div class="spec-val text-accent">COMPLETED CONCEPT & APPEARANCE MODEL</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- § 00 · HERO IMAGE ========================================== -->
+    <section class="hero-image fade-up" style="padding:0;min-height:0;position:relative;">
+      <div class="img-slot" data-slot-label="ThermoWave — Hero · In-Context" style="width:100%;aspect-ratio:21/9;max-height:680px;background:#0d0e0d;">
+        <img src="assets/thermo-hero.png" alt="ThermoWave — hero in-context render" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+      </div>
+      <div style="position:absolute;bottom:16px;left:24px;font-family:'Azeret Mono',monospace;font-size:10px;color:#FAFAFA;letter-spacing:0.15em;text-transform:uppercase;background:rgba(26,28,27,0.78);padding:6px 10px;backdrop-filter:blur(4px);z-index:2;">
+        <span style="color:#D4A24C;">FIG.00</span> · HERO · IN-CONTEXT · LUXURY KITCHEN
+      </div>
+    </section>
+
+    <!-- § 01 · PROBLEM ============================================= -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-20">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 01 · PROBLEM</div>
+        <div class="mono text-xs text-text-2 tracking-[0.15em] uppercase">SOUS VIDE · COMMODITY MARKET</div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        ${[
+          ['01','Temperature setting friction.'],
+          ['02','Inconsistent heat distribution.'],
+          ['03','Noisy water pump.'],
+          ['04','Generic shelf aesthetic.'],
+        ].map((r, i) => `
+          <div class="fade-up border border-border p-6 flex items-baseline gap-4" style="transition-delay:${i * 60}ms;">
+            <span class="mono text-[11px] text-accent tracking-[0.2em]">✕ ${r[0]}</span>
+            <span class="serif italic text-2xl text-text-1">${r[1]}</span>
+          </div>
+        `).join('')}
+      </div>
+
+      <h2 class="serif text-4xl md:text-5xl fade-up"><span class="italic">Four</span> failures. One category.</h2>
+    </section>
+
+    <!-- § 02 · TARGET ============================================== -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 02 · TARGET</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Designed</span> for the sophisticated home chef with style.</h2>
+        <div class="serif italic text-lg md:text-xl text-text-2 mt-2 max-w-2xl">Sophisticated cook. Luxury kitchen. Time to spend.</div>
+        <div class="prov mt-2">[N=6 PERSONAS · 1 SELECTED]</div>
+      </div>
+
+      <div class="grid md:grid-cols-12 gap-6 items-stretch">
+        <div class="md:col-span-4 grid grid-cols-2 md:grid-cols-1 gap-4">
+          <div class="border border-border p-6">
+            <div class="serif text-5xl text-accent leading-none mb-2">1/6</div>
+            <div class="mono text-[11px] text-text-1 tracking-[0.2em] uppercase">PERSONA SELECTED</div>
+            <div class="prov">[N=SEGMENTATION]</div>
+          </div>
+          <div class="border border-border p-6">
+            <div class="serif text-5xl text-accent leading-none mb-2">$$$$</div>
+            <div class="mono text-[11px] text-text-1 tracking-[0.2em] uppercase">PRICE TIER</div>
+            <div class="prov">[N=COMPETITIVE MAP]</div>
+          </div>
+        </div>
+        <div class="md:col-span-8 grid grid-cols-2 gap-4">
+          <div class="group fade-up">${slot('Persona · Portrait', '3/4')}</div>
+          <div class="group fade-up" style="transition-delay:80ms;">${slot('Persona · Context', '3/4')}</div>
+        </div>
+      </div>
+
+      <div class="fade-up border-l-2 border-accent pl-6 py-4 mt-8">
+        <div class="serif italic text-2xl md:text-3xl text-text-1 leading-snug max-w-3xl">
+          "With abundant free time, I immerse myself in cooking, delighting both myself and friends."
+        </div>
+      </div>
+    </section>
+
+    <!-- § 03 · LANDSCAPE (positioning matrix — placeholder pending image/rebuild) -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 03 · LANDSCAPE</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Stable</span> vs dynamic. Utilitarian vs premium.</h2>
+      </div>
+
+      <!-- Matrix placeholder: data preserved around it -->
+      <div class="fade-up border border-border p-6 mb-6">
+        <div class="flex flex-wrap items-baseline justify-between gap-3 mb-4 pb-3 border-b border-border">
+          <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase">FIG.04 · COMPETITIVE LANDSCAPE · POSITIONING MATRIX</div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase">2-AXIS · 14 PRODUCTS PLOTTED</div>
+        </div>
+        <div class="img-slot" data-slot-label="ThermoWave — §03 Positioning Matrix (2-axis scatter)" style="aspect-ratio:16/9;">
+          <div class="relative z-10 text-center px-4 mono text-[10px] leading-relaxed">
+            [POSITIONING MATRIX — IMAGE OR HTML REBUILD PENDING]<br>PRICE × FORM · BLUE-OCEAN ZONE
+          </div>
+        </div>
+        <div class="prov mt-3">[N=14 / RETAIL Q4 / AMAZON · WILLIAMS SONOMA · MFR]</div>
+      </div>
+
+      <!-- Cluster + target callouts (data visible while matrix pending) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="fade-up border border-border p-5">
+          <div class="mono text-[10px] text-text-3 tracking-[0.2em] uppercase mb-2">CLUSTER A · GENERIC STICKS</div>
+          <div class="serif italic text-2xl text-text-1">5 units · $45–79</div>
+          <div class="prov">FITYOU · WANCLE · MEGACHEF · INSTANT POT · MOPHOM</div>
+        </div>
+        <div class="fade-up border border-border p-5" style="transition-delay:80ms;">
+          <div class="mono text-[10px] text-text-3 tracking-[0.2em] uppercase mb-2">CLUSTER B · PREMIUM BOXES</div>
+          <div class="serif italic text-2xl text-text-1">4 units · $400–700</div>
+          <div class="prov">SV SUPREME · BREVILLE HYDROPRO · TYPHUR · WOLF GOURMET</div>
+        </div>
+        <div class="fade-up border border-accent p-5" style="transition-delay:160ms;background:#26292a;">
+          <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-2">TARGET · BLUE OCEAN</div>
+          <div class="serif italic text-2xl text-accent">$400–600 · sculpted</div>
+          <div class="prov">PREMIUM × SCULPTED FORM · ZERO INCUMBENTS</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- § 04 · IDEATION + MOOD BOARD =============================== -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 04 · IDEATION</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Form</span> exploration.</h2>
+      </div>
+
+      <!-- Mood board -->
+      <div class="grid md:grid-cols-12 gap-6 mb-8">
+        <div class="md:col-span-7 group fade-up">
+          ${slot('Mood Board · Luxury Performance', '16/10')}
+          <div class="fig-caption">
+            <span><span class="fig-num">MOOD</span> · LUXURY PERFORMANCE</span>
+            <span>VISUAL DIRECTION</span>
+          </div>
+        </div>
+        <div class="md:col-span-5 fade-up border border-border p-6 flex flex-col justify-center" style="transition-delay:80ms;">
+          <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-4 pb-3 border-b border-border">KEYWORDS</div>
+          <div class="flex flex-col gap-3 serif italic text-2xl text-text-1">
+            <span>precision</span>
+            <span>sophisticated</span>
+            <span>refined</span>
+            <span>tailored</span>
+            <span>alluring</span>
+            <span>accommodating</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sketches -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        ${[
+          ['FIG.05','SHEET A','SKETCH'],
+          ['FIG.06','SHEET B','SKETCH'],
+          ['FIG.08','CALLOUTS','RENDER'],
+        ].map((r, i) => `
+          <div class="group fade-up" style="transition-delay:${i * 80}ms;">
+            ${slot(r[1] + ' · ' + r[2], '4/3')}
+            <div class="fig-caption">
+              <span><span class="fig-num">${r[0]}</span> · ${r[1]}</span>
+              <span>${r[2]}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- § 05 · FORM STUDY ========================================== -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 05 · FORM STUDY</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Foam.</span> In the vessel.</h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        ${[
+          ['FIG.09','3/4 VIEW','FOAM'],
+          ['FIG.10','PROFILE','FOAM'],
+          ['FIG.11','FRONT','FOAM'],
+          ['FIG.12','IN-VESSEL','STOCKPOT'],
+          ['FIG.13','IN-VESSEL','PROFILE'],
+        ].map((r, i) => `
+          <div class="group fade-up" style="transition-delay:${i * 60}ms;">
+            ${slot(r[1] + ' · ' + r[2], '3/4')}
+            <div class="fig-caption">
+              <span><span class="fig-num">${r[0]}</span> · ${r[1]}</span>
+              <span>${r[2]}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- § 06 · SIGNATURE + UI ====================================== -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 06 · SIGNATURE + UI</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Four</span> moves. One gesture.</h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        ${[
+          ['01','Split Chassis','PROPORTION · WEIGHT'],
+          ['02','TempArc','ROTATIONAL · BEZEL'],
+          ['03','Prism Frame','ANGULAR · SILHOUETTE'],
+          ['04','WaveMatrix','PASSIVE · QUIET FLOW'],
+        ].map((r, i) => `
+          <div class="group fade-up" style="transition-delay:${i * 60}ms;">
+            ${slot(r[1], '1/1')}
+            <div class="mt-3">
+              <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-1">${r[0]}</div>
+              <div class="serif italic text-xl text-text-1">${r[1]}</div>
+              <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase mt-1">${r[2]}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="grid md:grid-cols-12 gap-6 items-center">
+        <div class="md:col-span-7 group fade-up">
+          ${slot('Bezel UI · Temp Mode', '16/9')}
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.14</span> · TEMP MODE</span>
+            <span>BEZEL UI</span>
+          </div>
+        </div>
+        <div class="md:col-span-5 fade-up" style="transition-delay:80ms;">
+          <div class="border-l-2 border-accent pl-6 py-4">
+            <div class="serif italic text-2xl text-text-1 leading-snug">Swipe screen horizontally to switch between modes.</div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mt-4">ROTATE · TEMP &nbsp; / &nbsp; SWIPE · MODE</div>
+            <div class="mono text-[10px] text-text-3 tracking-[0.15em] uppercase mt-2">FIG.15 · LOGO + INTERACTION MODEL</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- § 07 · CMF ================================================= -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 07 · CMF</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Three</span> finishes. Three shelves.</h2>
+        <div class="serif italic text-lg md:text-xl text-text-2 mt-2 max-w-2xl">Each colorway tuned to a retailer fit.</div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5 mb-6">
+        ${[
+          ['FIG.16','SILVER','NATURAL · STAINLESS','RETAIL FIT · TARGET'],
+          ['FIG.17','BRASS','WARM · ACCENT','RETAIL FIT · WILLIAMS SONOMA'],
+          ['FIG.18','MAROON','DARK · ANODIZED','RETAIL FIT · WOLF'],
+        ].map((r, i) => `
+          <div class="group fade-up" style="transition-delay:${i * 80}ms;">
+            ${slot(r[1] + ' colorway', '3/4')}
+            <div class="fig-caption">
+              <span><span class="fig-num">${r[0]}</span> · ${r[1]}</span>
+              <span>${r[2]}</span>
+            </div>
+            <div class="mono text-[10px] text-text-3 tracking-[0.15em] uppercase mt-2">${r[3]}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="fade-up mono text-[10px] text-text-2 tracking-[0.2em] uppercase pt-4 border-t border-border">
+        STAINLESS BODY · TITANIUM ELEMENT · BRASS BEZEL
+      </div>
+    </section>
+
+    <!-- § 08 · RENDERS ============================================= -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 08 · RENDERS</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Final</span> views.</h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        ${[
+          ['FIG.19','3-COLOR LINEUP','RENDER','3/4'],
+          ['FIG.20','3/4 HERO','RENDER','3/4'],
+          ['FIG.21','COUNTERTOP','IN-CONTEXT','3/4'],
+          ['FIG.22','KITCHEN SCENE','IN-CONTEXT','3/4'],
+        ].map((r, i) => `
+          <div class="group fade-up" style="transition-delay:${i * 60}ms;">
+            ${slot(r[1] + ' · ' + r[2], r[3])}
+            <div class="fig-caption">
+              <span><span class="fig-num">${r[0]}</span> · ${r[1]}</span>
+              <span>${r[2]}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- § 09 · OUTCOME ============================================= -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16 pb-24">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 09 · OUTCOME</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Master</span> temperature. Experience luxury.</h2>
+      </div>
+
+      <div class="fade-up border border-border p-8 mb-8">
+        <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-4">§ · OUTCOME</div>
+        <div class="serif italic text-3xl mb-6">Concept resolved. Luxury positioned. Appearance validated.</div>
+        <div class="grid md:grid-cols-3 gap-6 pt-6 border-t border-border">
+          <div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">MODEL</div>
+            <div class="mono text-[11px] text-text-1 tracking-[0.15em] uppercase">APPEARANCE · PAINTED FOAM</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">POSITIONING</div>
+            <div class="mono text-[11px] text-text-1 tracking-[0.15em] uppercase">LUXURY TIER · $400–600</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">STATUS</div>
+            <div class="mono text-[11px] text-accent tracking-[0.15em] uppercase">CONCEPT COMPLETE</div>
+          </div>
+        </div>
+        <div class="mono text-[10px] text-text-3 tracking-[0.2em] uppercase mt-6">THERMOWAVE · SOUS VIDE · 2026</div>
+      </div>
+
+      <div class="fade-up grid md:grid-cols-2 gap-6 pt-6 border-t border-border">
+        <div>
+          <a class="backlink" onclick="navigate('home')">← INDEX</a>
+        </div>
+        <div class="md:text-right">
+          <a class="mono text-[11px] text-accent tracking-[0.2em] uppercase" style="cursor:pointer;" onclick="navigate('welded-stool')">NEXT · WELDED STOOL ↗</a>
+        </div>
+      </div>
+    </section>
+
+    ${Footer()}
+  `;
+}
+
+function WeldedStoolView() {
+  return `
+    ${TopNav()}
+    ${CaseStudyBack()}
+
+    <!-- § 00 · HEADER STRIP ========================================= -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-10 pb-12 fade-up">
+      <div class="grid md:grid-cols-12 gap-6 items-end">
+        <div class="md:col-span-7">
+          <div class="mono text-[11px] text-accent tracking-[0.2em] uppercase mb-6">§ 00 · FABRICATION · FURNITURE</div>
+          <h1 class="serif text-6xl md:text-8xl leading-[0.9] mb-4">
+            <span class="italic">Welded</span> Stool.
+          </h1>
+          <div class="serif text-xl md:text-2xl italic text-text-2 max-w-xl">
+            Organic form. Bent tube. Shop craft.
+          </div>
+        </div>
+        <div class="md:col-span-5 mono text-[10px] tracking-[0.15em] uppercase">
+          <div class="spec-row"><div class="spec-key">ROLE</div><div class="spec-val">co-DESIGNED · INDIVIDUAL FABRICATION</div></div>
+          <div class="spec-row"><div class="spec-key">DURATION</div><div class="spec-val">3 WEEKS · METAL SHOP</div></div>
+          <div class="spec-row"><div class="spec-key">PROCESS</div><div class="spec-val">MIG · TUBE BENDING · GRINDING</div></div>
+          <div class="spec-row"><div class="spec-key">CONTEXT</div><div class="spec-val">SCAD / FABRICATION / '24</div></div>
+          <div class="spec-row" style="border-bottom:none;"><div class="spec-key">STATUS</div><div class="spec-val text-accent">COMPLETED — SHOP-FINISHED</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- § 00 · HERO IMAGE =========================================== -->
+    <section class="hero-image fade-up" style="padding:0; min-height:0; position:relative;">
+      <div class="img-slot" data-slot-label="Welded Stool — Base Weld Detail" style="width:100%; aspect-ratio: 4 / 5; max-height:820px;">
+        <img src="assets/welded-stool-cover.jpg" alt="Welded Stool — overhead base weld detail" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;">
+      </div>
+      <div class="absolute bottom-4 left-6 mono text-[10px] text-text-1 tracking-[0.15em] uppercase" style="background:rgba(26,28,27,0.78); padding:6px 10px; backdrop-filter:blur(4px); z-index:2;">
+        <span class="text-accent">FIG.00</span> · HERO DETAIL · BASE WELD CLUSTER
+      </div>
+    </section>
+
+    <!-- § 01 · BRIEF ================================================ -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-20">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 01 · BRIEF</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Expressing</span> the material properties of steel.</h2>
+        <div class="serif italic text-lg md:text-xl text-text-2 mt-3 max-w-3xl leading-snug">
+          A three-week sprint to design and fabricate two identical steel stools using MIG welding with a partner — focused on expressing the raw material properties of steel through structural form.
+        </div>
+        <div class="mono text-xs text-text-2 tracking-[0.15em] uppercase mt-3">
+          METAL SHOP · MIG + TUBE BEND · SINGLE-USER SEATING
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="fade-up border border-border p-6">
+          <div class="flex items-baseline justify-between mb-4 pb-3 border-b border-border">
+            <div class="serif italic text-2xl">Constraints</div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase">◻</div>
+          </div>
+          <ul class="space-y-2 text-text-1">
+            <li>MIG welded joinery.</li>
+            <li>Bench-grade tooling access.</li>
+            <li>Budget under $150.</li>
+          </ul>
+        </div>
+        <div class="fade-up border border-border p-6" style="transition-delay:120ms;">
+          <div class="flex items-baseline justify-between mb-4 pb-3 border-b border-border">
+            <div class="serif italic text-2xl text-accent">Intent</div>
+            <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase">+</div>
+          </div>
+          <ul class="space-y-2 text-text-1">
+            <li>Anatomical, organic silhouette.</li>
+            <li>Triangulated load path.</li>
+            <li>Heavy, grounded stance.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- § 04 · BILL OF MATERIALS ==================================== -->
+    <!-- HERO SECTION: uses real data from welded_stool_bom.pdf        -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 04 · BILL OF MATERIALS</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">17</span> parts. 20 feet. 29 pounds.</h2>
+        <div class="mono text-xs text-text-2 tracking-[0.15em] uppercase mt-2">
+          MANUFACTURING BOM · REV 01 · A513 MILD STEEL
+        </div>
+      </div>
+
+      <!-- Top-line metric strip -->
+      <div class="fade-up grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div class="border border-border p-5">
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">TOTAL PARTS</div>
+          <div class="serif text-5xl text-accent">17</div>
+          <div class="prov">[N=17 / BOM REV 01]</div>
+        </div>
+        <div class="border border-border p-5">
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">TUBE STOCK</div>
+          <div class="serif text-5xl text-accent">20<span class="text-2xl text-text-2 ml-1">FT</span></div>
+          <div class="prov">[22 FT ORDER / 10% OVER]</div>
+        </div>
+        <div class="border border-border p-5">
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">TOTAL WEIGHT</div>
+          <div class="serif text-5xl text-accent">~29<span class="text-2xl text-text-2 ml-1">LB</span></div>
+          <div class="prov">[CALC / BOM LINE TOTALS]</div>
+        </div>
+        <div class="border border-border p-5">
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">EST. COST</div>
+          <div class="serif text-5xl text-accent">~$120</div>
+          <div class="prov">[2025–26 A513 RETAIL]</div>
+        </div>
+      </div>
+
+      <!-- Tube stock breakdown — 14 BWG -->
+      <div class="fade-up border border-border mb-4">
+        <div class="p-5 border-b border-border flex flex-wrap items-baseline justify-between gap-3">
+          <div>
+            <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-1">STOCK A</div>
+            <div class="serif text-2xl italic">1″ OD × 14 BWG steel tube</div>
+          </div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase">
+            WALL 1.98 MM · 0.67 LB/FT · STOCK 2715.5 MM
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full mono text-[11px] tracking-[0.1em] uppercase">
+            <thead>
+              <tr class="text-text-3">
+                <th class="text-left p-3 border-b border-border font-normal">PART</th>
+                <th class="text-left p-3 border-b border-border font-normal">STRAIGHT</th>
+                <th class="text-left p-3 border-b border-border font-normal">QTY</th>
+                <th class="text-left p-3 border-b border-border font-normal">BEND R (INNER)</th>
+                <th class="text-left p-3 border-b border-border font-normal">BEND ANGLE</th>
+              </tr>
+            </thead>
+            <tbody class="text-text-1">
+              <tr><td class="p-3 border-b border-border">Seat ring segment</td><td class="p-3 border-b border-border">275.6 mm</td><td class="p-3 border-b border-border text-accent">×6</td><td class="p-3 border-b border-border">R430.4</td><td class="p-3 border-b border-border">~35.7°</td></tr>
+              <tr><td class="p-3 border-b border-border">Frame bend</td><td class="p-3 border-b border-border">243.2 mm</td><td class="p-3 border-b border-border text-accent">×3</td><td class="p-3 border-b border-border">R233.5</td><td class="p-3 border-b border-border">~56.6°</td></tr>
+              <tr><td class="p-3">Straight</td><td class="p-3">332.5 mm</td><td class="p-3 text-accent">×1</td><td class="p-3 text-text-3">—</td><td class="p-3 text-text-3">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="p-4 border-t border-border flex justify-between mono text-[10px] tracking-[0.15em] uppercase">
+          <span class="text-text-2">SUBTOTAL</span>
+          <span class="text-text-1">10 PIECES · 6.0 LB · ~$18</span>
+        </div>
+      </div>
+
+      <!-- Tube stock breakdown — 12 BWG -->
+      <div class="fade-up border border-border mb-4">
+        <div class="p-5 border-b border-border flex flex-wrap items-baseline justify-between gap-3">
+          <div>
+            <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-1">STOCK B</div>
+            <div class="serif text-2xl italic">1″ OD × 12 BWG steel tube</div>
+          </div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase">
+            WALL 2.77 MM · 0.87 LB/FT · STOCK 3303.8 MM
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full mono text-[11px] tracking-[0.1em] uppercase">
+            <thead>
+              <tr class="text-text-3">
+                <th class="text-left p-3 border-b border-border font-normal">PART</th>
+                <th class="text-left p-3 border-b border-border font-normal">STRAIGHT</th>
+                <th class="text-left p-3 border-b border-border font-normal">QTY</th>
+                <th class="text-left p-3 border-b border-border font-normal">BEND R (INNER)</th>
+                <th class="text-left p-3 border-b border-border font-normal">BEND ANGLE</th>
+              </tr>
+            </thead>
+            <tbody class="text-text-1">
+              <tr><td class="p-3 border-b border-border">Leg bend (large)</td><td class="p-3 border-b border-border">595.1 mm</td><td class="p-3 border-b border-border text-accent">×2</td><td class="p-3 border-b border-border">R186.1</td><td class="p-3 border-b border-border">~171.5°</td></tr>
+              <tr><td class="p-3 border-b border-border">Leg bend (mid)</td><td class="p-3 border-b border-border">498.1 mm</td><td class="p-3 border-b border-border text-accent">×1</td><td class="p-3 border-b border-border">R185.8</td><td class="p-3 border-b border-border">~143.7°</td></tr>
+              <tr><td class="p-3 border-b border-border">Frame bend</td><td class="p-3 border-b border-border">287.8 mm</td><td class="p-3 border-b border-border text-accent">×3</td><td class="p-3 border-b border-border">R233.5</td><td class="p-3 border-b border-border">~67.0°</td></tr>
+              <tr><td class="p-3 border-b border-border">Support bend</td><td class="p-3 border-b border-border">266.3 mm</td><td class="p-3 border-b border-border text-accent">×1</td><td class="p-3 border-b border-border">R177.7</td><td class="p-3 border-b border-border">~80.1°</td></tr>
+              <tr><td class="p-3">Straight</td><td class="p-3">196.3 mm</td><td class="p-3 text-accent">×1</td><td class="p-3 text-text-3">—</td><td class="p-3 text-text-3">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="p-4 border-t border-border flex justify-between mono text-[10px] tracking-[0.15em] uppercase">
+          <span class="text-text-2">SUBTOTAL</span>
+          <span class="text-text-1">8 PIECES · 9.4 LB · ~$30</span>
+        </div>
+      </div>
+
+      <!-- Sheet stock — seat disc -->
+      <div class="fade-up border border-border mb-4">
+        <div class="p-5 border-b border-border flex flex-wrap items-baseline justify-between gap-3">
+          <div>
+            <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-1">STOCK C</div>
+            <div class="serif text-2xl italic">1/4″ HR steel plate</div>
+          </div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase">
+            6.35 MM · CUT FROM 16″ × 16″ BLANK
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full mono text-[11px] tracking-[0.1em] uppercase">
+            <thead>
+              <tr class="text-text-3">
+                <th class="text-left p-3 border-b border-border font-normal">PART</th>
+                <th class="text-left p-3 border-b border-border font-normal">DIMENSION</th>
+                <th class="text-left p-3 border-b border-border font-normal">QTY</th>
+                <th class="text-left p-3 border-b border-border font-normal">WEIGHT</th>
+                <th class="text-left p-3 border-b border-border font-normal">EST. COST</th>
+              </tr>
+            </thead>
+            <tbody class="text-text-1">
+              <tr><td class="p-3">Seat disc</td><td class="p-3">Ø403.3 mm · 15.9″</td><td class="p-3 text-accent">×1</td><td class="p-3">14.0 lb</td><td class="p-3">~$22</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Consumables -->
+      <div class="fade-up border border-border">
+        <div class="p-5 border-b border-border flex flex-wrap items-baseline justify-between gap-3">
+          <div>
+            <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-1">STOCK D</div>
+            <div class="serif text-2xl italic">Consumables + finishing</div>
+          </div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase">
+            LINE SUBTOTAL ~$47
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full mono text-[11px] tracking-[0.1em] uppercase">
+            <thead>
+              <tr class="text-text-3">
+                <th class="text-left p-3 border-b border-border font-normal">ITEM</th>
+                <th class="text-left p-3 border-b border-border font-normal">ORDER QTY</th>
+                <th class="text-left p-3 border-b border-border font-normal">EST. UNIT</th>
+                <th class="text-left p-3 border-b border-border font-normal">EST. LINE</th>
+              </tr>
+            </thead>
+            <tbody class="text-text-1">
+              <tr><td class="p-3 border-b border-border">MIG wire · ER70S-6 · .030/.035</td><td class="p-3 border-b border-border">2 lb spool</td><td class="p-3 border-b border-border text-text-3">—</td><td class="p-3 border-b border-border">~$12</td></tr>
+              <tr><td class="p-3 border-b border-border">Shielding gas · 75/25 Ar/CO₂</td><td class="p-3 border-b border-border">shop supply</td><td class="p-3 border-b border-border text-text-3">—</td><td class="p-3 border-b border-border">~$8</td></tr>
+              <tr><td class="p-3 border-b border-border">Cut-off + flap discs</td><td class="p-3 border-b border-border">3–4 discs</td><td class="p-3 border-b border-border text-text-3">—</td><td class="p-3 border-b border-border">~$12</td></tr>
+              <tr><td class="p-3">Primer + topcoat spray cans</td><td class="p-3 text-text-3">—</td><td class="p-3 text-text-3">—</td><td class="p-3">~$15</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="prov mt-6">
+        [SOURCE / WELDED STOOL BOM · FIG.29 · SECTION 08 · REV 01 · CENTERLINE BEND METHOD]
+      </div>
+    </section>
+
+    <!-- § 03 · GEOMETRY ============================================= -->
+    <!-- Transparent CAD renders — angled view + side profile          -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 03 · GEOMETRY</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">CAD</span> intent.</h2>
+        <div class="serif italic text-lg md:text-xl text-text-2 mt-2 max-w-2xl">Form before fabrication. Lines before beads.</div>
+        <div class="mono text-xs text-text-2 tracking-[0.15em] uppercase mt-2">
+          SOLIDWORKS · KEYSHOT · TRANSPARENT PLATE
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <!-- Angled render -->
+        <div class="group fade-up">
+          <div class="img-slot aspect-[4/5]" style="background:
+              linear-gradient(rgba(212,162,76,0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(212,162,76,0.05) 1px, transparent 1px),
+              var(--deep);
+              background-size: 32px 32px, 32px 32px, auto;">
+            <img src="assets/welded-stool-angle.png"
+                 alt="Welded Stool — angled CAD render"
+                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; padding:24px;">
+            <div class="absolute top-3 left-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">ISO</div>
+            <div class="absolute top-3 right-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">VIEW · 01</div>
+          </div>
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.05</span> · ANGLED VIEW</span>
+            <span>ISOMETRIC · TRANSPARENT</span>
+          </div>
+        </div>
+
+        <!-- Side profile render -->
+        <div class="group fade-up" style="transition-delay:80ms;">
+          <div class="img-slot aspect-[4/5]" style="background:
+              linear-gradient(rgba(212,162,76,0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(212,162,76,0.05) 1px, transparent 1px),
+              var(--deep);
+              background-size: 32px 32px, 32px 32px, auto;">
+            <img src="assets/welded-stool-side.png"
+                 alt="Welded Stool — side profile CAD render"
+                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; padding:24px;">
+            <div class="absolute top-3 left-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">ELEV</div>
+            <div class="absolute top-3 right-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">VIEW · 02</div>
+          </div>
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.06</span> · SIDE PROFILE</span>
+            <span>ORTHOGRAPHIC · ELEVATION</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Geometry callout strip -->
+      <div class="fade-up grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-border">
+        <div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">SEAT Ø</div>
+          <div class="serif italic text-2xl">403.3 mm</div>
+          <div class="prov">[15.9″ / HR PLATE]</div>
+        </div>
+        <div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">STANCE</div>
+          <div class="serif italic text-2xl">Tripod</div>
+          <div class="prov">[3-LEG TRIANGULATED]</div>
+        </div>
+        <div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">TUBE Ø</div>
+          <div class="serif italic text-2xl">1″ OD</div>
+          <div class="prov">[14 + 12 BWG WALL]</div>
+        </div>
+        <div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">FIG COUNT</div>
+          <div class="serif italic text-2xl">11 bends</div>
+          <div class="prov">[CL METHOD / BOM]</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- § 06 · WELD DETAIL ========================================== -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 06 · WELD DETAIL</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Bead</span> as ornament.</h2>
+        <div class="serif italic text-lg md:text-xl text-text-2 mt-2 max-w-2xl">No grinding. Stacked dimes kept visible.</div>
+      </div>
+
+      <div class="grid md:grid-cols-12 gap-6">
+        <div class="md:col-span-8">
+          <div class="group fade-up">
+            <div class="img-slot aspect-[4/5]">
+              <img src="assets/welded-stool-cover.jpg" alt="Welded Stool — weld cluster at base convergence" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;">
+            </div>
+            <div class="fig-caption">
+              <span><span class="fig-num">FIG.11</span> · BASE CONVERGENCE</span>
+              <span>SIX-WAY WELD CLUSTER</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-4 flex flex-col gap-4">
+          <div class="fade-up border border-border p-5" style="transition-delay:60ms;">
+            <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-2">WIRE</div>
+            <div class="serif italic text-xl">ER70S-6</div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase mt-1">.030/.035 · 2 LB SPOOL</div>
+          </div>
+          <div class="fade-up border border-border p-5" style="transition-delay:120ms;">
+            <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-2">GAS</div>
+            <div class="serif italic text-xl">75/25 Ar/CO₂</div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase mt-1">SHORT-CIRCUIT TRANSFER</div>
+          </div>
+          <div class="fade-up border border-border p-5" style="transition-delay:180ms;">
+            <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-2">JOINT TYPES</div>
+            <div class="serif italic text-xl">Fillet · Butt · T</div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase mt-1">SIX-WAY CONVERGENCE NODE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- § 08 · CLOSER =============================================== -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16 pb-24">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 08 · CLOSER</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Heavy.</span> Grounded. Sat on.</h2>
+      </div>
+
+      <div class="fade-up border border-border p-8 mb-8">
+        <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-4">§ · OUTCOME</div>
+        <div class="serif italic text-3xl mb-6">Shop-finished. Structurally sound. Still in use.</div>
+        <div class="grid md:grid-cols-3 gap-6 pt-6 border-t border-border">
+          <div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">LOAD TESTED</div>
+            <div class="mono text-[11px] text-text-1 tracking-[0.15em] uppercase">300 LB · FLUID</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">FINISH</div>
+            <div class="mono text-[11px] text-text-1 tracking-[0.15em] uppercase">BRUSHED · SEALED</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">STATUS</div>
+            <div class="mono text-[11px] text-accent tracking-[0.15em] uppercase">IN DAILY USE</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-up grid md:grid-cols-2 gap-6 pt-6 border-t border-border">
+        <div>
+          <a class="backlink" onclick="navigate('home')">← INDEX</a>
+        </div>
+        <div class="md:text-right">
+          <a class="mono text-[11px] text-accent tracking-[0.2em] uppercase" style="cursor:pointer;" onclick="navigate('ergodeck')">NEXT · ERGODECK ↗</a>
+        </div>
+      </div>
+    </section>
+
+    ${Footer()}
+  `;
+}
+
+function NdaBriefView(cfg) {
+  return `
+    ${TopNav()}
+    ${CaseStudyBack()}
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-10 pb-10 fade-up">
+      <div class="mono text-[11px] text-accent tracking-[0.2em] uppercase mb-6">§ 00 · NDA BRIEF</div>
+      <h1 class="serif text-6xl md:text-8xl leading-[0.9] mb-4">
+        <span class="italic">${cfg.firstWord}</span>${cfg.titleRest}.
+      </h1>
+      <div class="serif text-xl md:text-2xl italic text-text-2 max-w-2xl">${cfg.descriptor}</div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-10 fade-up">
+      <div class="mono text-[10px] tracking-[0.15em] uppercase max-w-3xl">
+        <div class="spec-row"><div class="spec-key">ROLE</div><div class="spec-val">${cfg.role}</div></div>
+        <div class="spec-row"><div class="spec-key">DURATION</div><div class="spec-val">${cfg.duration}</div></div>
+        <div class="spec-row"><div class="spec-key">CLIENT</div><div class="spec-val">${cfg.client}</div></div>
+        <div class="spec-row"><div class="spec-key">TEAM</div><div class="spec-val">${cfg.team}</div></div>
+        <div class="spec-row"><div class="spec-key">FABRICATION</div><div class="spec-val">${cfg.fab}</div></div>
+        <div class="spec-row" style="border-bottom:none;"><div class="spec-key">STATUS</div><div class="spec-val text-accent">UNDER NDA — OUTCOMES CONFIDENTIAL</div></div>
+      </div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-16 fade-up">
+      <div class="border border-border p-8" style="background:var(--surface);">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="pulse-dot"></span>
+          <span class="mono text-[11px] text-accent tracking-[0.25em] uppercase">CONFIDENTIAL</span>
+        </div>
+        <p class="serif text-xl md:text-2xl leading-snug text-text-1 max-w-3xl">
+          The final concepts, deliverables, and research findings from this engagement are protected under a non-disclosure agreement. What follows is a role-and-process brief. Full review available on request.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-12">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 01 · WHAT I DID</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Led</span> the work from brief to client.</h2>
+        <div class="serif italic text-lg md:text-xl text-text-2 mt-2 max-w-2xl">My role, in plain language.</div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        ${cfg.did.map((d, i) => `
+          <div class="fade-up border border-border p-6" style="transition-delay:${i * 80}ms;">
+            <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase mb-3 pb-3 border-b border-border">${d[0]}</div>
+            <div class="text-text-1 text-sm leading-relaxed">${d[1]}</div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-12">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 02 · METHODS SHOWN</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Process</span> I can show you.</h2>
+        <div class="serif italic text-lg md:text-xl text-text-2 mt-2 max-w-2xl">What the NDA doesn't cover.</div>
+      </div>
+      <div class="fade-up flex flex-wrap gap-2">
+        ${cfg.methods.map(m => `<span class="tag-pill">${m}</span>`).join('')}
+      </div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-12 pb-24">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 03 · REFERENCES AVAILABLE</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">Ask</span> and I'll open the file.</h2>
+        <div class="serif italic text-lg md:text-xl text-text-2 mt-2 max-w-2xl">Full documentation available on request.</div>
+      </div>
+      <div class="fade-up border-l-2 border-accent pl-6 py-4 bg-deep" style="border-right:1px solid var(--border); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:24px 24px 24px 28px;">
+        <p class="serif text-xl md:text-2xl leading-snug text-text-1 max-w-3xl mb-4">
+          For detailed process documentation and final deliverables, contact Hunter directly. References from project leads available.
+        </p>
+        <a href="mailto:hunterdavis.uas@gmail.com" class="mono text-[11px] text-accent tracking-[0.2em] uppercase">hunterdavis.uas@gmail.com ↗</a>
+      </div>
+
+      <div class="fade-up grid md:grid-cols-2 gap-6 pt-10 mt-10 border-t border-border">
+        <div><a class="backlink" onclick="navigate('home')">← INDEX</a></div>
+        <div class="md:text-right">
+          <a class="mono text-[11px] text-accent tracking-[0.2em] uppercase" style="cursor:pointer;" onclick="navigate('${cfg.next}')">NEXT · ${cfg.nextLabel} ↗</a>
+        </div>
+      </div>
+    </section>
+
+    ${Footer()}
+  `;
+}
+
+function KohlerView() {
+  return NdaBriefView({
+    firstWord: 'Kohler', titleRest: '',
+    descriptor: 'Kitchen & bath innovation sprint with a SCADpro cross-functional team.',
+    role: 'PROJECT MANAGER · SCADPRO',
+    duration: '10 WEEKS · MAR–JUN 2025',
+    client: 'KOHLER CO.',
+    team: '6 DESIGNERS · CROSS-DISCIPLINARY',
+    fab: 'PROTOTYPE FABRICATION · IN-SHOP',
+    did: [
+      ['LED','Cross-functional team of 6 through a 10-week sprint from ideation to client presentation.'],
+      ['MANAGED','Stakeholder presentations, prototype fabrication oversight, and design-strategy decisions.'],
+      ['DELIVERED','Final client presentation, refined prototype set, and go-forward recommendations.'],
+    ],
+    methods: ['USER INTERVIEWS','FIELD OBSERVATION','COMPETITIVE TEARDOWN','SKETCH IDEATION','CAD DEVELOPMENT','PROTOTYPE FABRICATION','CLIENT PRESENTATION','DESIGN STRATEGY'],
+    next: 'skullcandy', nextLabel: 'SKULLCANDY',
+  });
+}
+
+function SkullcandyView() {
+  return NdaBriefView({
+    firstWord: 'Skullcandy', titleRest: '',
+    descriptor: 'Consumer electronics concept work for a SCADpro client studio.',
+    role: 'INDUSTRIAL DESIGNER · SCADPRO',
+    duration: '10 WEEKS · JAN–MAR 2025',
+    client: 'SKULLCANDY',
+    team: 'SCADPRO STUDIO COHORT',
+    fab: 'CAD · RENDER · FOAM STUDY',
+    did: [
+      ['DESIGNED','Functional consumer electronics concepts, from form language to CAD-ready geometry.'],
+      ['DEVELOPED','Form languages, SolidWorks CAD models, and KeyShot renders for internal review.'],
+      ['PRESENTED','Concept directions and rendered decks to client stakeholders for evaluation.'],
+    ],
+    methods: ['FORM LANGUAGE','SKETCH IDEATION','CAD DEVELOPMENT','KEYSHOT RENDERING','FOAM STUDY','DESIGN PRESENTATION'],
+    next: 'cad-renders', nextLabel: 'CAD & RENDERS',
+  });
+}
+
+function CadRendersView() {
+  return `
+    ${TopNav()}
+    ${CaseStudyBack()}
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-10 pb-12 fade-up">
+      <div class="mono text-[11px] text-accent tracking-[0.2em] uppercase mb-6">§ 00 · GALLERY</div>
+      <h1 class="serif text-6xl md:text-8xl leading-[0.9] mb-4">
+        <span class="italic">CAD</span> & Renders.
+      </h1>
+      <div class="serif text-xl md:text-2xl italic text-text-2 max-w-xl">SolidWorks · Rhino · KeyShot. Visualization exercises.</div>
+    </section>
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-12 pb-24">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-5">
+        ${Array.from({length:6}).map((_,i)=>`
+          <div class="group fade-up" style="transition-delay:${i*60}ms;">
+            <div class="img-slot aspect-[4/5]" data-slot-label="CAD Render ${String(i+1).padStart(2,'0')}">
+              <div class="relative z-10 text-center px-3">
+                <div class="mt-2">RENDER · ${String(i+1).padStart(2,'0')}</div>
+              </div>
+            </div>
+            <div class="fig-caption">
+              <span><span class="fig-num">FIG.${String(i+1).padStart(2,'0')}</span> · CAD STUDY</span>
+              <span>[IMAGE \u2014 PROVIDE]</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="fade-up mt-10 pt-10 border-t border-border">
+        <a class="backlink" onclick="navigate('home')">← INDEX</a>
+      </div>
+    </section>
+    ${Footer()}
+  `;
+}
+
+function render() {
+  const app = document.getElementById('app');
+  let html = '';
+  switch (state.view) {
+    case 'home':       html = HomeView(); break;
+    case 'about':      html = AboutView(); break;
+    case 'resume':     html = ResumeView(); break;
+    case 'ergodeck':     html = ErgoDeckView(); break;
+    case 'thermowave':   html = ThermoWaveView(); break;
+    case 'welded-stool': html = WeldedStoolView(); break;
+    case 'kohler':       html = KohlerView(); break;
+    case 'skullcandy':   html = SkullcandyView(); break;
+    case 'cad-renders':  html = CadRendersView(); break;
+    default:           html = HomeView();
+  }
+  app.innerHTML = html;
+  requestAnimationFrame(observeFades);
+  if (typeof initImgTool === 'function') initImgTool();
+  if (state.view === 'ergodeck' && typeof fitFigCanvas === 'function') {
+    requestAnimationFrame(fitFigCanvas);
+    requestAnimationFrame(function () { requestAnimationFrame(fitFigCanvas); });
+    setTimeout(fitFigCanvas, 0);
+    setTimeout(fitFigCanvas, 150);
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  render();
+});
+
+/* ============================================================ */
+/* IMAGE TOOL — Upload + Frame (additive, case studies only)    */
+/* ============================================================ */
+(function () {
+  const ACCENT = '#D4A24C';
+  const SURFACE = '#353837';
+  const MAROON = '#24050B';
+  const CASE_VIEWS = ['home', 'ergodeck', 'thermowave', 'welded-stool'];
+
+  // Edit mode (Claude design host) — button only appears when host activates edit mode.
+  let editModeActive = false;
+  function syncBtnVisibility() {
+    const view = (typeof state !== 'undefined' && state && state.view) || '';
+    const inCase = CASE_VIEWS.indexOf(view) !== -1;
+    if (typeof btn === 'undefined' || !btn) return;
+    btn.classList.toggle('visible', editModeActive && inCase);
+    if (!(editModeActive && inCase)) {
+      document.body.classList.remove('img-tool-on');
+      btn.innerHTML = '⊡ IMG TOOL';
+      if (typeof closePanel === 'function') closePanel();
+    }
+  }
+  window.addEventListener('message', (e) => {
+    const data = e && e.data;
+    if (!data || typeof data !== 'object') return;
+    if (data.type === '__activate_edit_mode') {
+      editModeActive = true;
+      syncBtnVisibility();
+    } else if (data.type === '__deactivate_edit_mode') {
+      editModeActive = false;
+      syncBtnVisibility();
+    }
+  });
+  // Announce availability after listener is registered.
+  try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch (_) {}
+
+
+  // ---- Tool CSS (additive; no existing rules altered) ----
+  const toolCss = document.createElement('style');
+  toolCss.id = 'img-tool-css';
+  toolCss.textContent = `
+    #img-tool-btn { position: fixed; bottom: 20px; right: 20px; z-index: 200;
+      background: var(--deep); border: 1px solid var(--border); color: var(--text-2);
+      font-family: 'Azeret Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 10px 14px; cursor: pointer; transition: color 0.2s, border-color 0.2s; display: none; }
+    #img-tool-btn.visible { display: inline-block; }
+    #img-tool-btn:hover { color: var(--text-1); border-color: ${ACCENT}; }
+    body.img-tool-on #img-tool-btn { color: ${ACCENT}; border-color: ${ACCENT}; }
+    body.img-tool-on .img-slot { cursor: crosshair; }
+    body.img-tool-on .img-slot:hover { outline: 1px dashed ${ACCENT}; outline-offset: 2px; }
+    body.img-tool-on .group:hover .img-slot { transform: none !important; border-color: var(--border) !important; }
+    .img-slot.img-tool-selected { outline: 2px solid ${ACCENT} !important; outline-offset: 2px; }
+
+    #img-tool-panel { position: absolute; z-index: 210; width: 260px;
+      background: var(--deep); border: 1px solid ${ACCENT}; padding: 16px;
+      font-family: 'Azeret Mono', monospace; color: var(--text-1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    #img-tool-panel .it-header { font-size: 10px; letter-spacing: 0.2em; color: ${ACCENT}; text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid var(--border); margin-bottom: 10px; }
+    #img-tool-panel .it-section { padding: 10px 0; border-bottom: 1px solid var(--border); }
+    #img-tool-panel .it-section:last-child { border-bottom: none; }
+    #img-tool-panel .it-label { font-size: 10px; letter-spacing: 0.2em; color: ${ACCENT}; text-transform: uppercase; margin-bottom: 6px; }
+    #img-tool-panel .it-btn { font-family: 'Azeret Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+      background: transparent; border: 1px solid var(--border); color: var(--text-1); padding: 6px 10px; cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+    #img-tool-panel .it-btn:hover { color: ${ACCENT}; border-color: ${ACCENT}; }
+    #img-tool-panel .it-btn.brass { color: ${ACCENT}; border-color: ${ACCENT}; }
+    #img-tool-panel .it-btn.brass:hover { background: ${ACCENT}; color: var(--bg); }
+    #img-tool-panel .it-hint { font-size: 9px; color: var(--text-3); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 6px; }
+    #img-tool-panel .it-slider-row { display: flex; align-items: center; gap: 10px; }
+    #img-tool-panel .it-slider-row + .it-slider-row { margin-top: 10px; }
+    #img-tool-panel .it-slider-label-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    #img-tool-panel .it-slider-block + .it-slider-block { margin-top: 10px; }
+    #img-tool-panel .it-readout { font-family: 'Azeret Mono', monospace; font-size: 10px; color: var(--text-1); letter-spacing: 0.1em;
+      width: 56px; text-align: right; font-variant-numeric: tabular-nums; }
+    #img-tool-panel input[type="range"].it-range {
+      -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: ${SURFACE}; outline: none; margin: 0; padding: 0;
+      cursor: grab; border-radius: 0;
+    }
+    #img-tool-panel input[type="range"].it-range:active { cursor: grabbing; }
+    #img-tool-panel input[type="range"].it-range::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 50%;
+      background: ${ACCENT}; border: none; cursor: grab; margin-top: 0;
+    }
+    #img-tool-panel input[type="range"].it-range:active::-webkit-slider-thumb { cursor: grabbing; }
+    #img-tool-panel input[type="range"].it-range::-moz-range-thumb {
+      width: 12px; height: 12px; border-radius: 50%; background: ${ACCENT}; border: none; cursor: grab;
+    }
+    #img-tool-panel input[type="range"].it-range::-moz-range-track { background: ${SURFACE}; height: 2px; border: none; }
+
+    #img-tool-panel .it-action-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    #img-tool-panel .it-action-row .it-btn { flex: 1; min-width: 60px; }
+
+    #img-tool-toast { position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-10px); z-index: 220;
+      font-family: 'Azeret Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      background: ${ACCENT}; color: var(--bg); padding: 10px 18px; opacity: 0; transition: opacity 0.2s, transform 0.2s; pointer-events: none; }
+    #img-tool-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    #img-tool-toast.err { background: ${MAROON}; color: #fff; }
+  `;
+  document.head.appendChild(toolCss);
+
+  // ---- Trigger button ----
+  const btn = document.createElement('button');
+  btn.id = 'img-tool-btn';
+  btn.type = 'button';
+  btn.innerHTML = '⊡ IMG TOOL';
+  document.body.appendChild(btn);
+
+  // ---- Toast ----
+  const toast = document.createElement('div');
+  toast.id = 'img-tool-toast';
+  document.body.appendChild(toast);
+  let toastTimer = null;
+  function showToast(msg, isErr) {
+    toast.textContent = msg;
+    toast.classList.toggle('err', !!isErr);
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1200);
+  }
+
+  // ---- Per-slot state (survives re-render via WeakMap) ----
+  let panel = null;
+  let activeSlot = null;
+  const slotState = new WeakMap();
+
+  function getState(slot) {
+    let s = slotState.get(slot);
+    if (!s) { s = { posX: 50, posY: 50, zoom: 1, shrink: 1 }; slotState.set(slot, s); }
+    if (typeof s.shrink !== 'number') s.shrink = 1;
+    return s;
+  }
+
+  function applyState(slot) {
+    const s = getState(slot);
+    const img = slot.querySelector('img');
+    if (img) {
+      img.style.objectFit = img.style.objectFit || 'cover';
+      const pct = Math.max(0.2, Math.min(1, s.shrink)) * 100;
+      const off = (100 - pct) / 2;
+      img.style.width = pct + '%';
+      img.style.height = pct + '%';
+      img.style.top = off + '%';
+      img.style.left = off + '%';
+      img.style.right = 'auto';
+      img.style.bottom = 'auto';
+      img.style.objectPosition = `${s.posX}% ${s.posY}%`;
+      img.style.transform = `scale(${s.zoom})`;
+      img.style.transformOrigin = 'center center';
+    }
+  }
+
+  function parseExistingFraming(slot) {
+    const img = slot.querySelector('img');
+    const s = getState(slot);
+    if (!img) return s;
+    // Parse object-position
+    const op = img.style.objectPosition || '';
+    const mOp = op.match(/(\d+(?:\.\d+)?)%\s+(\d+(?:\.\d+)?)%/);
+    if (mOp) { s.posX = +mOp[1]; s.posY = +mOp[2]; }
+    // Parse transform: scale(...)
+    const tr = img.style.transform || '';
+    const mTr = tr.match(/scale\(\s*(\d+(?:\.\d+)?)\s*\)/);
+    if (mTr) { s.zoom = Math.min(3, Math.max(1, +mTr[1])); }
+    // Parse width% (shrink factor)
+    const w = img.style.width || '';
+    const mW = w.match(/(\d+(?:\.\d+)?)%/);
+    if (mW) { s.shrink = Math.min(1, Math.max(0.2, +mW[1] / 100)); }
+    return s;
+  }
+
+  function slotLabel(slot) {
+    const parent = slot.parentElement;
+    const cap = parent ? parent.querySelector('.fig-caption .fig-num') : null;
+    if (cap) {
+      return cap.parentElement.textContent.trim().replace(/\s+/g, ' ').toUpperCase();
+    }
+    const img = slot.querySelector('img');
+    if (img && img.alt) return img.alt.toUpperCase();
+    return 'IMAGE SLOT';
+  }
+
+  function closePanel() {
+    if (panel) { panel.remove(); panel = null; }
+    if (activeSlot) { activeSlot.classList.remove('img-tool-selected'); activeSlot = null; }
+  }
+
+  // Fill slider track from 0 → thumb in brass
+  function fillTrack(input, min, max) {
+    const pct = ((+input.value - min) / (max - min)) * 100;
+    input.style.background = `linear-gradient(to right, ${ACCENT} 0%, ${ACCENT} ${pct}%, ${SURFACE} ${pct}%, ${SURFACE} 100%)`;
+  }
+
+  function openPanel(slot) {
+    closePanel();
+    activeSlot = slot;
+    slot.classList.add('img-tool-selected');
+
+    // Reconcile session state with any currently-applied inline framing
+    parseExistingFraming(slot);
+    const s = getState(slot);
+    const label = slotLabel(slot);
+
+    panel = document.createElement('div');
+    panel.id = 'img-tool-panel';
+    panel.innerHTML = `
+      <div class="it-header">${label}</div>
+
+      <div class="it-section">
+        <div class="it-label">Image source</div>
+        <label class="it-btn" style="display:inline-block;">
+          ⬆ Upload image
+          <input type="file" accept="image/*" id="it-file" style="display:none;">
+        </label>
+        <div class="it-hint">Session only · Export CSS to persist</div>
+      </div>
+
+      <div class="it-section">
+        <div class="it-slider-block">
+          <div class="it-slider-label-row">
+            <div class="it-label" style="margin-bottom:0;">Pan X</div>
+            <div class="it-readout" id="it-x-readout">${s.posX}%</div>
+          </div>
+          <input type="range" class="it-range" id="it-x" min="0" max="100" step="1" value="${s.posX}">
+        </div>
+        <div class="it-slider-block">
+          <div class="it-slider-label-row">
+            <div class="it-label" style="margin-bottom:0;">Pan Y</div>
+            <div class="it-readout" id="it-y-readout">${s.posY}%</div>
+          </div>
+          <input type="range" class="it-range" id="it-y" min="0" max="100" step="1" value="${s.posY}">
+        </div>
+        <div class="it-slider-block">
+          <div class="it-slider-label-row">
+            <div class="it-label" style="margin-bottom:0;">Zoom</div>
+            <div class="it-readout" id="it-z-readout">${s.zoom.toFixed(2)}×</div>
+          </div>
+          <input type="range" class="it-range" id="it-z" min="1" max="3" step="0.01" value="${s.zoom.toFixed(2)}">
+        </div>
+        <div class="it-slider-block">
+          <div class="it-slider-label-row">
+            <div class="it-label" style="margin-bottom:0;">Shrink</div>
+            <div class="it-readout" id="it-s-readout">${Math.round(s.shrink*100)}%</div>
+          </div>
+          <input type="range" class="it-range" id="it-s" min="0.2" max="1" step="0.01" value="${s.shrink.toFixed(2)}">
+        </div>
+      </div>
+
+      <div class="it-section">
+        <div class="it-action-row">
+          <button class="it-btn" data-act="reset">↺ Reset</button>
+          <button class="it-btn brass" data-act="copy">⧉ Copy CSS</button>
+          <button class="it-btn" data-act="close">✕ Close</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(panel);
+
+    // Position (document coords; anchor to slot's top-right, clamp on-screen)
+    const rect = slot.getBoundingClientRect();
+    const top = rect.top + window.scrollY;
+    const left = rect.right + window.scrollX + 12;
+    const maxLeft = document.documentElement.scrollWidth - 260 - 16;
+    panel.style.top = top + 'px';
+    panel.style.left = Math.min(Math.max(8, left), Math.max(8, maxLeft)) + 'px';
+
+    const xInput = panel.querySelector('#it-x');
+    const yInput = panel.querySelector('#it-y');
+    const zInput = panel.querySelector('#it-z');
+    const sInput = panel.querySelector('#it-s');
+    const xRead  = panel.querySelector('#it-x-readout');
+    const yRead  = panel.querySelector('#it-y-readout');
+    const zRead  = panel.querySelector('#it-z-readout');
+    const sRead  = panel.querySelector('#it-s-readout');
+
+    // Initial track fills
+    fillTrack(xInput, 0, 100);
+    fillTrack(yInput, 0, 100);
+    fillTrack(zInput, 1, 3);
+    fillTrack(sInput, 0.2, 1);
+
+    xInput.addEventListener('input', () => {
+      s.posX = +xInput.value;
+      xRead.textContent = `${s.posX}%`;
+      fillTrack(xInput, 0, 100);
+      applyState(slot);
+    });
+    yInput.addEventListener('input', () => {
+      s.posY = +yInput.value;
+      yRead.textContent = `${s.posY}%`;
+      fillTrack(yInput, 0, 100);
+      applyState(slot);
+    });
+    zInput.addEventListener('input', () => {
+      s.zoom = +(+zInput.value).toFixed(2);
+      zRead.textContent = `${s.zoom.toFixed(2)}×`;
+      fillTrack(zInput, 1, 3);
+      applyState(slot);
+    });
+    sInput.addEventListener('input', () => {
+      s.shrink = +(+sInput.value).toFixed(2);
+      sRead.textContent = `${Math.round(s.shrink*100)}%`;
+      fillTrack(sInput, 0.2, 1);
+      applyState(slot);
+    });
+
+    // File upload
+    panel.querySelector('#it-file').addEventListener('change', (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      if (!f.type.startsWith('image/')) { showToast('Invalid file', true); return; }
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        let img = slot.querySelector('img');
+        if (!img) {
+          slot.innerHTML = '';
+          img = document.createElement('img');
+          img.alt = label;
+          slot.appendChild(img);
+        }
+        img.src = ev.target.result;
+        applyState(slot);
+        showToast('Uploaded ✓');
+      };
+      reader.onerror = () => showToast('Invalid file', true);
+      reader.readAsDataURL(f);
+    });
+
+    // Action buttons
+    panel.querySelectorAll('[data-act]').forEach(b => {
+      b.addEventListener('click', async () => {
+        const act = b.getAttribute('data-act');
+        if (act === 'reset') {
+          s.posX = 50; s.posY = 50; s.zoom = 1; s.shrink = 1;
+          xInput.value = 50; yInput.value = 50; zInput.value = 1; sInput.value = 1;
+          xRead.textContent = '50%'; yRead.textContent = '50%'; zRead.textContent = '1.00×'; sRead.textContent = '100%';
+          fillTrack(xInput, 0, 100); fillTrack(yInput, 0, 100); fillTrack(zInput, 1, 3); fillTrack(sInput, 0.2, 1);
+          applyState(slot);
+        } else if (act === 'copy') {
+          const sizePct = Math.round(s.shrink*100);
+          const offPct = (100 - sizePct) / 2;
+          const css = `/* ${label} — framing */\nwidth: ${sizePct}%;\nheight: ${sizePct}%;\ntop: ${offPct}%;\nleft: ${offPct}%;\nobject-position: ${s.posX}% ${s.posY}%;\ntransform: scale(${s.zoom.toFixed(2)});\n`;
+          try {
+            await navigator.clipboard.writeText(css);
+            showToast('Copied ✓');
+          } catch (err) {
+            showToast('Copy failed', true);
+          }
+        } else if (act === 'close') {
+          closePanel();
+        }
+      });
+    });
+  }
+
+  // ---- Slot click binding ----
+  function onSlotClick(e) {
+    if (!document.body.classList.contains('img-tool-on')) return;
+    const slot = e.currentTarget;
+    e.preventDefault();
+    e.stopPropagation();
+    if (activeSlot === slot) { closePanel(); return; }
+    openPanel(slot);
+  }
+
+  window.initImgTool = function () {
+    const view = (typeof state !== 'undefined' && state && state.view) || '';
+    const inCase = CASE_VIEWS.indexOf(view) !== -1;
+    syncBtnVisibility();
+    if (!(editModeActive && inCase)) return;
+    document.querySelectorAll('.img-slot').forEach(slot => {
+      if (slot.__imgToolBound) return;
+      slot.__imgToolBound = true;
+      slot.addEventListener('click', onSlotClick);
+      applyState(slot);
+    });
+  };
+
+  // Toggle button
+  btn.addEventListener('click', () => {
+    const on = document.body.classList.toggle('img-tool-on');
+    btn.innerHTML = on ? '⊡ IMG TOOL' : '⊡ IMG TOOL';
+    if (!on) closePanel();
+  });
+
+  // Escape: close panel; if already closed, exit tool mode
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (panel) { closePanel(); return; }
+    if (document.body.classList.contains('img-tool-on')) {
+      document.body.classList.remove('img-tool-on');
+      btn.innerHTML = '⊡ IMG TOOL';
+    }
+  });
+
+  // Click outside panel / slot closes panel
+  document.addEventListener('click', (e) => {
+    if (!panel) return;
+    if (panel.contains(e.target)) return;
+    if (e.target.closest && e.target.closest('.img-slot')) return;
+    closePanel();
+  });
+
+  // First-run init if render already fired
+  if (document.readyState !== 'loading') {
+    setTimeout(() => { if (typeof initImgTool === 'function') initImgTool(); }, 0);
+  }
+})();
+
+
+</script>
+
+<script src="ergodeck-view.js"></script>
+</body>
+</html>
