@@ -915,7 +915,7 @@ function WeldedStoolView() {
 
     <!-- § 00 · HERO IMAGE =========================================== -->
     <section class="hero-image fade-up" style="padding:0; min-height:0; position:relative;">
-      <div class="img-slot" data-slot-label="Welded Stool — Base Weld Detail" style="width:100%; aspect-ratio: 4 / 5; max-height:820px;">
+      <div class="img-slot" data-slot-label="Welded Stool — Hero · Weld Cluster" style="width:100%; aspect-ratio: 16 / 7; max-height:640px;">
         <img src="assets/welded-stool-cover.jpg" alt="Welded Stool — overhead base weld detail" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;">
       </div>
       <div class="absolute bottom-4 left-6 mono text-[10px] text-text-1 tracking-[0.15em] uppercase" style="background:rgba(26,28,27,0.78); padding:6px 10px; backdrop-filter:blur(4px); z-index:2;">
@@ -962,6 +962,83 @@ function WeldedStoolView() {
       </div>
     </section>
 
+    <!-- § 03 · GEOMETRY ============================================= -->
+    <!-- Transparent CAD renders — angled view + side profile          -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="fade-up mb-8">
+        <div class="sec-num mb-2">§ 03 · GEOMETRY</div>
+        <h2 class="serif text-4xl md:text-5xl"><span class="italic">CAD</span> intent.</h2>
+        <div class="serif italic text-lg md:text-xl text-text-2 mt-2 max-w-2xl">Form before fabrication. Lines before beads.</div>
+        <div class="mono text-xs text-text-2 tracking-[0.15em] uppercase mt-2">
+          SOLIDWORKS · KEYSHOT · TRANSPARENT PLATE
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <!-- Angled render -->
+        <div class="group fade-up">
+          <div class="img-slot aspect-[4/5]" style="background:
+              linear-gradient(rgba(212,162,76,0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(212,162,76,0.05) 1px, transparent 1px),
+              var(--deep);
+              background-size: 32px 32px, 32px 32px, auto;">
+            <img src="assets/welded-stool-angle.png"
+                 alt="Welded Stool — angled CAD render"
+                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; padding:24px;">
+            <div class="absolute top-3 left-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">ISO</div>
+            <div class="absolute top-3 right-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">VIEW · 01</div>
+          </div>
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.05</span> · ANGLED VIEW</span>
+            <span>ISOMETRIC · TRANSPARENT</span>
+          </div>
+        </div>
+
+        <!-- Side profile render -->
+        <div class="group fade-up" style="transition-delay:80ms;">
+          <div class="img-slot aspect-[4/5]" style="background:
+              linear-gradient(rgba(212,162,76,0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(212,162,76,0.05) 1px, transparent 1px),
+              var(--deep);
+              background-size: 32px 32px, 32px 32px, auto;">
+            <img src="assets/welded-stool-side.png"
+                 alt="Welded Stool — side profile CAD render"
+                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; padding:24px;">
+            <div class="absolute top-3 left-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">ELEV</div>
+            <div class="absolute top-3 right-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">VIEW · 02</div>
+          </div>
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.06</span> · SIDE PROFILE</span>
+            <span>ORTHOGRAPHIC · ELEVATION</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Geometry callout strip -->
+      <div class="fade-up grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-border">
+        <div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">SEAT Ø</div>
+          <div class="serif italic text-2xl">403.3 mm</div>
+          <div class="prov">[15.9″ / HR PLATE]</div>
+        </div>
+        <div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">STANCE</div>
+          <div class="serif italic text-2xl">Tripod</div>
+          <div class="prov">[3-LEG TRIANGULATED]</div>
+        </div>
+        <div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">TUBE Ø</div>
+          <div class="serif italic text-2xl">1″ OD</div>
+          <div class="prov">[14 + 12 BWG WALL]</div>
+        </div>
+        <div>
+          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">FIG COUNT</div>
+          <div class="serif italic text-2xl">11 bends</div>
+          <div class="prov">[CL METHOD / BOM]</div>
+        </div>
+      </div>
+    </section>
+
     <!-- § 04 · BILL OF MATERIALS ==================================== -->
     <!-- HERO SECTION: uses real data from welded_stool_bom.pdf        -->
     <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
@@ -994,6 +1071,17 @@ function WeldedStoolView() {
           <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">EST. COST</div>
           <div class="serif text-5xl text-accent">~$120</div>
           <div class="prov">[2025–26 A513 RETAIL]</div>
+        </div>
+      </div>
+
+      <!-- Bend diagram — the dimensioned drawing the BOM tables describe -->
+      <div class="group fade-up mb-10">
+        <div class="img-slot" style="aspect-ratio:1261/744;background:#f5f3ee;">
+          <img src="assets/welded-stool-bend.png" alt="Welded Stool — centerline bend diagram, tube + sheet stock" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1;">
+        </div>
+        <div class="fig-caption">
+          <span><span class="fig-num">FIG.29</span> · BEND DIAGRAM</span>
+          <span>CENTERLINE METHOD · 14 + 12 BWG · ¼″ SHEET</span>
         </div>
       </div>
 
@@ -1134,79 +1222,44 @@ function WeldedStoolView() {
       </div>
     </section>
 
-    <!-- § 03 · GEOMETRY ============================================= -->
-    <!-- Transparent CAD renders — angled view + side profile          -->
-    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
-      <div class="fade-up mb-8">
-        <div class="sec-num mb-2">§ 03 · GEOMETRY</div>
-        <h2 class="serif text-4xl md:text-5xl"><span class="italic">CAD</span> intent.</h2>
-        <div class="serif italic text-lg md:text-xl text-text-2 mt-2 max-w-2xl">Form before fabrication. Lines before beads.</div>
-        <div class="mono text-xs text-text-2 tracking-[0.15em] uppercase mt-2">
-          SOLIDWORKS · KEYSHOT · TRANSPARENT PLATE
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-5">
-        <!-- Angled render -->
-        <div class="group fade-up">
-          <div class="img-slot aspect-[4/5]" style="background:
-              linear-gradient(rgba(212,162,76,0.05) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(212,162,76,0.05) 1px, transparent 1px),
-              var(--deep);
-              background-size: 32px 32px, 32px 32px, auto;">
-            <img src="assets/welded-stool-angle.png"
-                 alt="Welded Stool — angled CAD render"
-                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; padding:24px;">
-            <div class="absolute top-3 left-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">ISO</div>
-            <div class="absolute top-3 right-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">VIEW · 01</div>
+    <!-- FINISHED OBJECT · GALLERY ================================ -->
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-4 pb-12">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="group fade-up" style="transition-delay:0ms;">
+          <div class="img-slot aspect-[3/4]">
+            <img src="assets/welded-stool-finished-1.jpg" alt="Welded Stool — 3/4 · SEATED" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
           </div>
           <div class="fig-caption">
-            <span><span class="fig-num">FIG.05</span> · ANGLED VIEW</span>
-            <span>ISOMETRIC · TRANSPARENT</span>
+            <span><span class="fig-num">FIG.30</span> · 3/4 · SEATED</span>
+            <span>WOOD SEAT</span>
           </div>
         </div>
-
-        <!-- Side profile render -->
-        <div class="group fade-up" style="transition-delay:80ms;">
-          <div class="img-slot aspect-[4/5]" style="background:
-              linear-gradient(rgba(212,162,76,0.05) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(212,162,76,0.05) 1px, transparent 1px),
-              var(--deep);
-              background-size: 32px 32px, 32px 32px, auto;">
-            <img src="assets/welded-stool-side.png"
-                 alt="Welded Stool — side profile CAD render"
-                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; padding:24px;">
-            <div class="absolute top-3 left-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">ELEV</div>
-            <div class="absolute top-3 right-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">VIEW · 02</div>
+        <div class="group fade-up" style="transition-delay:60ms;">
+          <div class="img-slot aspect-[3/4]">
+            <img src="assets/welded-stool-finished-2.jpg" alt="Welded Stool — FRONT" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
           </div>
           <div class="fig-caption">
-            <span><span class="fig-num">FIG.06</span> · SIDE PROFILE</span>
-            <span>ORTHOGRAPHIC · ELEVATION</span>
+            <span><span class="fig-num">FIG.31</span> · FRONT</span>
+            <span>THREE-LEG STANCE</span>
           </div>
         </div>
-      </div>
-
-      <!-- Geometry callout strip -->
-      <div class="fade-up grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-border">
-        <div>
-          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">SEAT Ø</div>
-          <div class="serif italic text-2xl">403.3 mm</div>
-          <div class="prov">[15.9″ / HR PLATE]</div>
+        <div class="group fade-up" style="transition-delay:120ms;">
+          <div class="img-slot aspect-[3/4]">
+            <img src="assets/welded-stool-finished-3.jpg" alt="Welded Stool — 3/4 · DISTANT" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+          </div>
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.32</span> · 3/4 · DISTANT</span>
+            <span>IN CONTEXT</span>
+          </div>
         </div>
-        <div>
-          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">STANCE</div>
-          <div class="serif italic text-2xl">Tripod</div>
-          <div class="prov">[3-LEG TRIANGULATED]</div>
-        </div>
-        <div>
-          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">TUBE Ø</div>
-          <div class="serif italic text-2xl">1″ OD</div>
-          <div class="prov">[14 + 12 BWG WALL]</div>
-        </div>
-        <div>
-          <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mb-2">FIG COUNT</div>
-          <div class="serif italic text-2xl">11 bends</div>
-          <div class="prov">[CL METHOD / BOM]</div>
+        <div class="group fade-up" style="transition-delay:180ms;">
+          <div class="img-slot aspect-[3/4]">
+            <img src="assets/welded-stool-finished-4.jpg" alt="Welded Stool — FRONT · ELEV" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+          </div>
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.33</span> · FRONT · ELEV</span>
+            <span>SHOP-FINISHED</span>
+          </div>
         </div>
       </div>
     </section>
