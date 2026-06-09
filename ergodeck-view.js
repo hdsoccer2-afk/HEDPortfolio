@@ -486,15 +486,15 @@
     ['#2E3532','TERTIARY · DARK TEAL','#2E3532 · TPE BUMPER · HARDWARE', false],
   ];
   const S08 = `
-    <div class="fg-section" style="top:10460px;height:980px;">
+    <div class="fg-section" style="top:10460px;height:1400px;">
       ${sectionHead(300, 63, 1320,
         '§ 08 · CMF',
         '<span class="ital">Color</span>, material, finish.')}
 
       <!-- Exploded image -->
       <div style="position:absolute;left:300px;top:223px;width:1006px;">
-        <div class="fg-img" style="width:1006px;height:566px;">
-          <img src="assets/fig-cmf-exploded.jpg" alt="Annotated exploded CAD" >
+        <div class="fg-img">
+          <img src="assets/fig-cmf-exploded.jpg" alt="Annotated exploded CAD">
         </div>
         ${cap(0, 576, 1006, 'FIG.20 · ANNOTATED EXPLODED', 'CAD LAYER BREAKDOWN')}
       </div>
@@ -503,7 +503,7 @@
       <div style="position:absolute;left:1346px;top:223px;width:274px;">
         ${SWATCHES.map((s, i) => `
           <div style="margin-bottom:${i < 2 ? '24px' : '0'};">
-            <div style="width:100%;aspect-ratio:1/1;background:${s[0]};border:1px solid #4A4D4B;"></div>
+            <div style="width:100%;aspect-ratio:2/1;background:${s[0]};border:1px solid #4A4D4B;"></div>
             <div class="mono" style="font-size:10px;letter-spacing:0.15em;color:#FAFAFA;margin-top:10px;">${s[1]}</div>
             <div class="mono" style="font-size:10px;letter-spacing:0.15em;color:#6B6660;margin-top:4px;">${s[2]}</div>
           </div>
