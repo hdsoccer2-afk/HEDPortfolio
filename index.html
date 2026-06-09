@@ -511,31 +511,39 @@ function ResumeView() {
 // It returns the full 1920-wide absolute-positioned figma canvas.
 
 const THERMO_IMG = {
+  // §00 hero handled inline below. Every slot has a predictable filename:
+  'Persona · Portrait': 'assets/thermo-persona-portrait.png',
+  'Persona · Context': 'assets/thermo-persona-context.png',
   'Mood Board · Luxury Performance': 'assets/thermo-moodboard.png',
   'SHEET A · SKETCH': 'assets/thermo-sketch-a.png',
   'SHEET B · SKETCH': 'assets/thermo-sketch-b.png',
   'CALLOUTS · RENDER': 'assets/thermo-callouts.png',
   '3/4 VIEW · FOAM': 'assets/thermo-foam-34.png',
+  'PROFILE · FOAM': 'assets/thermo-foam-profile.png',
   'FRONT · FOAM': 'assets/thermo-foam-front.png',
   'IN-VESSEL · STOCKPOT': 'assets/thermo-invessel-stockpot.png',
+  'IN-VESSEL · PROFILE': 'assets/thermo-invessel-profile.png',
+  'Split Chassis': 'assets/thermo-sig-split-chassis.png',
+  'TempArc': 'assets/thermo-sig-temparc.png',
+  'Prism Frame': 'assets/thermo-sig-prism-frame.png',
+  'WaveMatrix': 'assets/thermo-sig-wavematrix.png',
   'Bezel UI · Temp Mode': 'assets/thermo-bezel-ui.png',
   'SILVER colorway': 'assets/thermo-cmf-silver.png',
+  'BRASS colorway': 'assets/thermo-cmf-brass.png',
   'MAROON colorway': 'assets/thermo-cmf-maroon.png',
-  'COUNTERTOP · IN-CONTEXT': 'assets/thermo-countertop.png'
+  '3-COLOR LINEUP · RENDER': 'assets/thermo-render-lineup.png',
+  '3/4 HERO · RENDER': 'assets/thermo-render-34hero.png',
+  'COUNTERTOP · IN-CONTEXT': 'assets/thermo-countertop.png',
+  'KITCHEN SCENE · IN-CONTEXT': 'assets/thermo-render-kitchen.png'
 };
 
 function ThermoWaveView() {
   // Image placeholder helper — labeled slots for later injection via data-slot-label
   const slot = (label, ratio) => {
     const src = (typeof THERMO_IMG !== 'undefined') ? THERMO_IMG[label] : null;
-    if (src) {
-      return `<div class="img-slot" data-slot-label="ThermoWave — ${label}" style="aspect-ratio:${ratio};">
-        <img src="${src}" alt="ThermoWave — ${label}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1;">
-      </div>`;
-    }
-    return `<div class="img-slot" data-slot-label="ThermoWave — ${label}" style="aspect-ratio:${ratio};">
-      <div class="relative z-10 text-center px-3 mono text-[10px] leading-relaxed">[IMAGE — ${label}]</div>
-    </div>`;
+    const ph = `<div class="mono text-[10px] text-center px-3 leading-relaxed" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;color:var(--text-3);">[IMAGE — ${label}]</div>`;
+    const img = src ? `<img src="${src}" alt="ThermoWave — ${label}" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1;">` : '';
+    return `<div class="img-slot" data-slot-label="ThermoWave — ${label}" style="aspect-ratio:${ratio};">${ph}${img}</div>`;
   };
 
   return `
@@ -567,7 +575,7 @@ function ThermoWaveView() {
     <!-- § 00 · HERO IMAGE ========================================== -->
     <section class="hero-image fade-up" style="padding:0;min-height:0;position:relative;">
       <div class="img-slot" data-slot-label="ThermoWave — Hero · In-Context" style="width:100%;aspect-ratio:21/9;max-height:680px;background:#0d0e0d;">
-        <img src="assets/thermo-hero.png" alt="ThermoWave — hero in-context render" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+        <img src="assets/thermo-hero.png" alt="ThermoWave — hero in-context render" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
       </div>
       <div style="position:absolute;bottom:16px;left:24px;font-family:'Azeret Mono',monospace;font-size:10px;color:#FAFAFA;letter-spacing:0.15em;text-transform:uppercase;background:rgba(26,28,27,0.78);padding:6px 10px;backdrop-filter:blur(4px);z-index:2;">
         <span style="color:#D4A24C;">FIG.00</span> · HERO · IN-CONTEXT · LUXURY KITCHEN
@@ -646,10 +654,9 @@ function ThermoWaveView() {
           <div class="mono text-[10px] text-accent tracking-[0.2em] uppercase">FIG.04 · COMPETITIVE LANDSCAPE · POSITIONING MATRIX</div>
           <div class="mono text-[10px] text-text-2 tracking-[0.15em] uppercase">2-AXIS · 14 PRODUCTS PLOTTED</div>
         </div>
-        <div class="img-slot" data-slot-label="ThermoWave — §03 Positioning Matrix (2-axis scatter)" style="aspect-ratio:16/9;">
-          <div class="relative z-10 text-center px-4 mono text-[10px] leading-relaxed">
-            [POSITIONING MATRIX — IMAGE OR HTML REBUILD PENDING]<br>PRICE × FORM · BLUE-OCEAN ZONE
-          </div>
+        <div class="img-slot" data-slot-label="ThermoWave — Positioning Matrix" style="aspect-ratio:16/9;">
+          <div class="mono text-[10px] text-center px-4 leading-relaxed" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;color:var(--text-3);">[POSITIONING MATRIX — add assets/thermo-matrix.png]<br>PRICE × FORM · BLUE-OCEAN ZONE</div>
+          <img src="assets/thermo-matrix.png" alt="ThermoWave — positioning matrix" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1;">
         </div>
         <div class="prov mt-3">[N=14 / RETAIL Q4 / AMAZON · WILLIAMS SONOMA · MFR]</div>
       </div>
@@ -1276,7 +1283,7 @@ function WeldedStoolView() {
         <div class="md:col-span-8">
           <div class="group fade-up">
             <div class="img-slot aspect-[4/5]">
-              <img src="assets/welded-stool-cover.jpg" alt="Welded Stool — weld cluster at base convergence" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;">
+              <img src="assets/welded-stool-weld-detail.png" alt="Welded Stool — weld cluster at base convergence" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;">
             </div>
             <div class="fig-caption">
               <span><span class="fig-num">FIG.11</span> · BASE CONVERGENCE</span>
