@@ -337,19 +337,19 @@
         </div>
         ${cap(0, 1039, 656, 'FIG.13 · PROCESS · CNC IN PROGRESS', 'MDF SHELL')}
       </div>
-      <!-- RIGHT TOP FIG.12 -->
+      <!-- RIGHT TOP FIG.14 -->
       <div style="position:absolute;left:970px;top:1244px;width:650px;">
         <div class="fg-img" style="width:650px;height:487px;background:#222524;">
-          <img src="assets/fig-detail-top.png" alt="Detail · top surface">
-        </div>
-        ${cap(0, 497, 650, 'FIG.12 · DETAIL · TOP SURFACE', 'TOOL STORAGE ZONE')}
-      </div>
-      <!-- RIGHT BOTTOM FIG.14 -->
-      <div style="position:absolute;left:970px;top:1785px;width:650px;">
-        <div class="fg-img" style="width:650px;height:488px;background:#222524;">
           <img src="assets/fig-tool-storage.jpg" alt="Tool storage test · V2 phase">
         </div>
-        ${cap(0, 498, 650, 'FIG.14 · TOOL STORAGE TEST · V2 PHASE', 'CAD PRINTOUT ON TABLE')}
+        ${cap(0, 497, 650, 'FIG.14 · TOOL STORAGE TEST · V2 PHASE', 'CAD PRINTOUT ON TABLE')}
+      </div>
+      <!-- RIGHT BOTTOM FIG.12 -->
+      <div style="position:absolute;left:970px;top:1785px;width:650px;">
+        <div class="fg-img" style="width:650px;height:488px;background:#222524;">
+          <img src="assets/fig-detail-top.png" alt="Detail · top surface">
+        </div>
+        ${cap(0, 498, 650, 'FIG.12 · DETAIL · TOP SURFACE', 'TOOL STORAGE ZONE')}
       </div>
 
       <!-- Bottom rule -->
