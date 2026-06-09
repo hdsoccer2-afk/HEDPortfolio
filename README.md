@@ -1,57 +1,63 @@
-# Hunter Davis — Portfolio (multi-file, hosting-ready)
+# Hunter Davis ID — Portfolio (static site)
 
-Vanilla-JS single-page app. No build step. Static files only — deployable to any
-static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages).
+Hosting-ready static site. No build step, no framework, no CDN runtime.
+Open `index.html` locally or push the whole folder to any static host
+(GitHub Pages, Netlify, etc.). All paths are relative.
 
-## Structure
-    index.html          Shell: nav, router (navigate/render), and views —
-                         Home, About, Resume, ThermoWave, Welded Stool, NDA tiles
-    styles.css          All custom CSS (motion lives here: fade-up, hover, keyframes)
-    ergodeck-view.js    ErgoDeck case study (large; kept separate). Loaded via <script src>
-    deck-stage.js       Standalone poster/PDF web component — NOT loaded by index.html
-    assets/             Image files
+## Files
+- `index.html` — landing / work grid / about / contact
+- `ergodeck.html` — ErgoDeck case study (§00–§09)
+- `thermowave.html` — ThermoWave case study (§00–§10)
+- `weldedstool.html` — Welded Stool case study (§00–§06)
+- `styles.css` — shared stylesheet (all motion, matrix, UI panel, moves)
+- `assets/` — 64 images, relative-referenced
 
-## Preview locally (important)
-Do NOT open index.html with file:// — the browser blocks sibling JS/asset loads
-(you'll get the exact "ErgoDeck not working" symptom). Run a local server instead:
+## Standardized nav (all pages)
+`← INDEX` (left) · `WORK / ABOUT / RESUME` (right). "Shop" removed.
 
-    cd portfolio
-    python3 -m http.server 8000
-    # open http://localhost:8000
+## What was fixed in this build (vs. Figma source)
+- **Section numbers renumbered sequentially top-to-bottom.** ThermoWave's
+  §07/§08 inversion and Welded Stool's gaps are gone. Figure numbers (FIG.NN)
+  were also made sequential and unique to remove source duplicates
+  (Figma had FIG.04 ×2, FIG.06 ×2).
+- **ThermoWave §09 CMF reordered:** Silver/Target (L) → Maroon/Williams Sonoma
+  (M) → Brass/Wolf (R). Each on-body brand logo now matches its retail-fit
+  caption; Wolf is far right.
+- **Typos corrected:** "Luxury" (was "Luxary"), "accommodating" (was
+  "accomodating").
+- **ErgoDeck left exactly as-is** per prior instruction (its six flagged
+  caption/figure items are unchanged).
 
-## Deploy
-Any static host serves this folder as-is. Drag-and-drop the folder into
-Netlify/Vercel/Cloudflare Pages, or push to a GitHub Pages repo. index.html is the entry.
+## §03 ThermoWave positioning matrix
+Built as a **live inline SVG** in `thermowave.html` (inside the
+`tw_matrix()`-generated block), not an image. 14 products plotted, cluster
+ellipses, blue-ocean target zone. To swap for an exported image later,
+replace the `<svg class="matrix-svg">…</svg>` block with an `<img>`.
 
-## Images — what's included vs. what you must add
-PROVIDED (12, ThermoWave, in assets/):
-    thermo-hero.png  thermo-moodboard.png  thermo-sketch-a.png  thermo-sketch-b.png
-    thermo-callouts.png  thermo-foam-34.png  thermo-foam-front.png
-    thermo-invessel-stockpot.png  thermo-bezel-ui.png  thermo-cmf-silver.png
-    thermo-cmf-maroon.png  thermo-countertop.png
+## PDF-extracted images — swap-in slots for your cleaner exports
+These slots currently use images extracted from the layout PDF (lower res).
+Drop your cleaner Figma exports into `assets/` using these EXACT filenames to
+replace them — no code change needed:
 
-YOU MUST ADD (drop into assets/ with these EXACT names — use your Figma-cropped exports):
+ThermoWave §06 Form Study (foam):
+- `tw-foam-34.jpg`        — 3/4 view, foam
+- `tw-foam-profile.jpg`   — profile, foam
+- `tw-foam-front.jpg`     — front, foam
+- `tw-foam-pot.jpg`       — in-vessel, stockpot
+- `tw-foam-vprofile.jpg`  — in-vessel, profile
 
-  ErgoDeck:
-    fig-ergodeck-hero.jpg  ergodeck-fig00.jpg  fig-research-01.png  fig-research-02.png
-    fig-research-03.jpg  fig-insight-image.png  fig-sketches.jpg  fig-ai-ideation.jpg
-    fig-v1-foam.jpg  fig-v2-carved.jpg  fig-v3-mdf.jpg  fig-tool-storage.jpg
-    fig-cnc-process.jpg  fig-detail-top.png  fig-dimensions.png  fig-mfg-1.png
-    fig-cad-v1.png  fig-cad-v3.png  fig-cmf-detail.png  fig-cmf-exploded.jpg
-    fig-final-hero34.png  fig-final-detail-top.png  fig-final-incontext.png  fig-image240.png
+ErgoDeck §06 renders:
+- `ed-fig11.jpg`          — hero render, 3/4 angle
+- `ed-fig12.jpg`          — top-surface tool-storage detail render
 
-  Welded Stool:
-    welded-stool-cover.jpg  welded-stool-angle.png  welded-stool-side.png
-
-  NDA tiles + logo:
-    kohler-hero.jpg  skullcandy-cover.jpg  cad-renders-cover.jpg  hd-logo.png  thermowave-cover.jpg
-
-## Known TODO (content)
-- ThermoWave §03 positioning matrix: placeholder (decide: rebuild as HTML scatter vs. exported image)
-- ThermoWave still-empty slots: §02 personas x2, §05 profile + in-vessel profile,
-  §06 four signature-move diagrams, §07 Brass colorway, §08 3-color lineup + 3/4 hero + kitchen scene
-- Leftover uploads not yet placed: Amazon-logo white unit; competitor-with-salmon shot
-
-## Note on Tailwind
-index.html pulls Tailwind from cdn.tailwindcss.com (in-browser JIT). Fine for now;
-for a production build you may later swap to a compiled Tailwind CSS file.
+## Known open items (not bugs)
+- **ThermoWave §08:** the layout shows a third "Final CAD" render that is not
+  among the exports. The page shows the two that exist (3/4 hero + top-down)
+  plus the two in-context shots. Add a third by dropping `tw-final-X.jpg` into
+  `assets/` and adding one `fig()` call in the §08 block.
+- **§06 move-card icons** (Split Chassis / TempArc / Prism Frame / WaveMatrix)
+  are inline SVG, not images (source crops were unusable).
+- **§07 logo** is an Instrument Serif "ThermoWave" wordmark + an inline brass
+  flame SVG — not a supplied logo asset.
+- **NDA tiles** (Kohler, Skullcandy, CAD & Renders) are locked WIP placeholder
+  tiles on the index — no cover images.
