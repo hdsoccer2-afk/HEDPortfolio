@@ -528,6 +528,8 @@ const THERMO_IMG = {
   'Prism Frame': 'assets/thermo-sig-prism-frame.png',
   'WaveMatrix': 'assets/thermo-sig-wavematrix.png',
   'Bezel UI · Temp Mode': 'assets/thermo-bezel-ui.png',
+  'TW UI': 'assets/TW_UI.png',
+  'TW Logo': 'assets/TW_logo.png',
   'SILVER colorway': 'assets/thermo-cmf-silver.png',
   'BRASS colorway': 'assets/thermo-cmf-brass.png',
   'MAROON colorway': 'assets/thermo-cmf-maroon.png',
@@ -779,19 +781,19 @@ function ThermoWaveView() {
         `).join('')}
       </div>
 
-      <div class="grid md:grid-cols-12 gap-6 items-center">
-        <div class="md:col-span-7 group fade-up">
-          ${slot('Bezel UI · Temp Mode', '16/9')}
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="group fade-up">
+          ${slot('TW UI', '1/1')}
           <div class="fig-caption">
             <span><span class="fig-num">FIG.14</span> · TEMP MODE</span>
             <span>BEZEL UI</span>
           </div>
         </div>
-        <div class="md:col-span-5 fade-up" style="transition-delay:80ms;">
-          <div class="border-l-2 border-accent pl-6 py-4">
-            <div class="serif italic text-2xl text-text-1 leading-snug">Swipe screen horizontally to switch between modes.</div>
-            <div class="mono text-[10px] text-text-2 tracking-[0.2em] uppercase mt-4">ROTATE · TEMP &nbsp; / &nbsp; SWIPE · MODE</div>
-            <div class="mono text-[10px] text-text-3 tracking-[0.15em] uppercase mt-2">FIG.15 · LOGO + INTERACTION MODEL</div>
+        <div class="group fade-up" style="transition-delay:80ms;">
+          ${slot('TW Logo', '1/1')}
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.15</span> · LOGO</span>
+            <span>INTERACTION MODEL</span>
           </div>
         </div>
       </div>
@@ -834,21 +836,21 @@ function ThermoWaveView() {
         <h2 class="serif text-4xl md:text-5xl"><span class="italic">Final</span> views.</h2>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        ${[
-          ['FIG.19','3-COLOR LINEUP','RENDER','3/4'],
-          ['FIG.20','3/4 HERO','RENDER','3/4'],
-          ['FIG.21','COUNTERTOP','IN-CONTEXT','3/4'],
-          ['FIG.22','KITCHEN SCENE','IN-CONTEXT','3/4'],
-        ].map((r, i) => `
-          <div class="group fade-up" style="transition-delay:${i * 60}ms;">
-            ${slot(r[1] + ' · ' + r[2], r[3])}
-            <div class="fig-caption">
-              <span><span class="fig-num">${r[0]}</span> · ${r[1]}</span>
-              <span>${r[2]}</span>
-            </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="group fade-up">
+          ${slot('COUNTERTOP · IN-CONTEXT', '16/10')}
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.21</span> · COUNTERTOP</span>
+            <span>IN-CONTEXT</span>
           </div>
-        `).join('')}
+        </div>
+        <div class="group fade-up" style="transition-delay:80ms;">
+          ${slot('KITCHEN SCENE · IN-CONTEXT', '16/10')}
+          <div class="fig-caption">
+            <span><span class="fig-num">FIG.22</span> · KITCHEN SCENE</span>
+            <span>IN-CONTEXT</span>
+          </div>
+        </div>
       </div>
     </section>
 
