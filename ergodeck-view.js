@@ -392,8 +392,8 @@
 
       <!-- Two col: dimensions / tech spec -->
       <div style="position:absolute;left:300px;top:204px;width:648px;">
-        <div class="fg-img" style="width:648px;height:486px;background:#fff;border:1px solid #4A4D4B;display:flex;align-items:center;justify-content:center;">
-          <img src="assets/fig-dimensions.png" alt="Dimensioned drawing" style="background:#fff;">
+        <div class="fg-img" style="width:648px;height:486px;border:1px solid #4A4D4B;display:flex;align-items:center;justify-content:center;">
+          <img src="assets/fig-dimensions.png" alt="Dimensioned drawing">
         </div>
         ${cap(0, 496, 648, 'FIG.10 · DIMENSIONED DRAWING', 'SOLIDWORKS')}
       </div>
@@ -464,15 +464,15 @@
       <!-- V1 CAD → V3 CAD · continuation of §06 ENGINEERING, no section number -->
       <div style="position:absolute;left:300px;top:40px;width:1320px;height:340px;display:grid;grid-template-columns:1fr 80px 1fr;gap:24px;align-items:center;">
         <div>
-          <div class="fg-img" style="width:100%;height:300px;background:#fff;border:1px solid #4A4D4B;">
-            <img src="assets/fig-cad-v1.png" alt="V1 CAD" style="background:#fff;">
+          <div class="fg-img" style="width:100%;height:300px;border:1px solid #4A4D4B;">
+            <img src="assets/fig-cad-v1.png" alt="V1 CAD">
           </div>
           <div class="fg-cap-inline"><span class="fg-cap-a">V1 CAD</span><span class="fg-cap-g">RHINO / SOLIDWORKS</span></div>
         </div>
         <div class="mono" style="font-size:36px;color:#D4A24C;text-align:center;">→</div>
         <div>
-          <div class="fg-img" style="width:100%;height:300px;background:#fff;border:1px solid #4A4D4B;">
-            <img src="assets/fig-cad-v3.png" alt="V3 CAD" style="background:#fff;">
+          <div class="fg-img" style="width:100%;height:300px;border:1px solid #4A4D4B;">
+            <img src="assets/fig-cad-v3.png" alt="V3 CAD">
           </div>
           <div class="fg-cap-inline"><span class="fg-cap-a">V3 CAD</span><span class="fg-cap-g">FINAL GEOMETRY</span></div>
         </div>
@@ -511,7 +511,7 @@
       </div>
 
       <!-- 6 CMF detail thumbs -->
-      <div style="position:absolute;left:300px;top:830px;width:1320px;display:grid;grid-template-columns:repeat(6, 1fr);gap:8px;">
+      <div style="position:absolute;left:300px;top:830px;width:1320px;display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;">
         ${[
           ['fig-cmf-detail-v1.png','CMF · Orange / Black'],
           ['fig-cmf-detail-v2.png','CMF · Brown / Tan'],
@@ -520,7 +520,7 @@
           ['fig-cmf-detail-v5.png','CMF · Mystic Dark Forest v2'],
           ['fig-cmf-detail-v6.png','CMF · Rustic Cabin'],
         ].map(([src, alt]) => `
-          <div class="fg-img" style="aspect-ratio:443/249;">
+          <div class="fg-img">
             <img src="assets/${src}" alt="${alt}">
           </div>
         `).join('')}
