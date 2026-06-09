@@ -460,7 +460,7 @@
 
   // ── CAD COMPARISON · folded into §06 tail (no header, matches Figma) ──
   const S07 = `
-    <div class="fg-section" style="top:9950px;height:600px;">
+    <div class="fg-section" style="top:9950px;height:560px;">
       <!-- V1 CAD → V3 CAD · continuation of §06 ENGINEERING, no section number -->
       <div style="position:absolute;left:300px;top:40px;width:1320px;display:grid;grid-template-columns:1fr 80px 1fr;gap:24px;align-items:start;">
         <div>
@@ -529,7 +529,7 @@
 
   // ── § 09 OUTCOME (top 12564, height 1657.5) ────────────────────
   const S09 = `
-    <div class="fg-section" style="top:11500px;height:2240px;">
+    <div class="fg-section" style="top:11900px;height:2240px;">
       ${sectionHead(300, 63, 1320,
         '§ 09 · OUTCOME',
         '<span class="ital">Prototype</span> validated. Partners wanted to explore commercial fabrication')}
