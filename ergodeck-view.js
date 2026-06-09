@@ -460,19 +460,19 @@
 
   // ── CAD COMPARISON · folded into §06 tail (no header, matches Figma) ──
   const S07 = `
-    <div class="fg-section" style="top:9950px;height:450px;">
+    <div class="fg-section" style="top:9950px;height:600px;">
       <!-- V1 CAD → V3 CAD · continuation of §06 ENGINEERING, no section number -->
-      <div style="position:absolute;left:300px;top:40px;width:1320px;height:340px;display:grid;grid-template-columns:1fr 80px 1fr;gap:24px;align-items:center;">
+      <div style="position:absolute;left:300px;top:40px;width:1320px;display:grid;grid-template-columns:1fr 80px 1fr;gap:24px;align-items:start;">
         <div>
-          <div class="fg-img" style="width:100%;height:300px;border:1px solid #4A4D4B;">
-            <img src="assets/fig-cad-v1.png" alt="V1 CAD">
+          <div style="width:100%;border:1px solid #4A4D4B;">
+            <img src="assets/fig-cad-v1.png" alt="V1 CAD" style="display:block;width:100%;height:auto;">
           </div>
           <div class="fg-cap-inline"><span class="fg-cap-a">V1 CAD</span><span class="fg-cap-g">RHINO / SOLIDWORKS</span></div>
         </div>
-        <div class="mono" style="font-size:36px;color:#D4A24C;text-align:center;">→</div>
+        <div class="mono" style="font-size:36px;color:#D4A24C;text-align:center;padding-top:180px;">→</div>
         <div>
-          <div class="fg-img" style="width:100%;height:300px;border:1px solid #4A4D4B;">
-            <img src="assets/fig-cad-v3.png" alt="V3 CAD">
+          <div style="width:100%;border:1px solid #4A4D4B;">
+            <img src="assets/fig-cad-v3.png" alt="V3 CAD" style="display:block;width:100%;height:auto;">
           </div>
           <div class="fg-cap-inline"><span class="fg-cap-a">V3 CAD</span><span class="fg-cap-g">FINAL GEOMETRY</span></div>
         </div>
