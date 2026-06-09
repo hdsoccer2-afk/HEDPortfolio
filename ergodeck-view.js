@@ -494,7 +494,7 @@
       <!-- Exploded image -->
       <div style="position:absolute;left:300px;top:223px;width:1006px;">
         <div class="fg-img">
-          <img src="assets/fig-cmf-exploded.png" alt="Annotated exploded CAD">
+          <img src="assets/fig-cmf-exploded.png" alt="Annotated exploded CAD" style="display:block;width:100%;height:auto;">
         </div>
         ${cap(0, 576, 1006, 'FIG.20 · ANNOTATED EXPLODED', 'CAD LAYER BREAKDOWN')}
       </div>
@@ -520,8 +520,8 @@
           ['fig-cmf-detail-v5.png','CMF · Mystic Dark Forest v2'],
           ['fig-cmf-detail-v6.png','CMF · Rustic Cabin'],
         ].map(([src, alt]) => `
-          <div class="fg-img">
-            <img src="assets/${src}" alt="${alt}">
+          <div style="width:100%;aspect-ratio:444/250;position:relative;overflow:visible;">
+            <img src="assets/${src}" alt="${alt}" style="display:block;width:100%;height:auto;">
           </div>
         `).join('')}
       </div>
