@@ -180,7 +180,7 @@
       <!-- 3 images row -->
       ${S03_IMGS.map((r, i) => `
         <div style="position:absolute;left:${300 + i * 445}px;top:204px;width:430px;">
-          <div class="fg-img" style="width:430px;height:320px;background:#222524;">
+          <div class="fg-img" style="width:430px;height:320px;">
             <img src="${r[0]}" alt="${r[1]}">
           </div>
           ${cap(0, 330, 430, r[1], r[2])}
@@ -219,12 +219,12 @@
         'Hand and machine — two modes of divergence.')}
 
       <!-- Big sketch image -->
-      <div class="fg-img" style="position:absolute;left:312px;top:204px;width:1296px;height:822px;background:#222524;">
+      <div class="fg-img" style="position:absolute;left:312px;top:204px;width:1296px;height:822px;">
         <img src="assets/fig-sketches.jpg" alt="Sketch compilation">
       </div>
 
       <!-- AI MidJourney panel -->
-      <div style="position:absolute;left:300px;top:1058px;width:1320px;height:1090px;background:#222524;padding:48px 32px 32px 32px;">
+      <div style="position:absolute;left:300px;top:1058px;width:1320px;height:1090px;padding:48px 32px 32px 32px;">
         <div class="fg-row-border" style="padding-bottom:16px;">
           <span class="mono" style="font-size:10px;color:#D4A24C;letter-spacing:0.2em;">AI · SKETCH PHASE ONLY</span>
           <span class="mono" style="font-size:10px;color:#A0A5A3;letter-spacing:0.15em;">NOT USED FOR: ERGONOMICS · CMF · MECHANISM</span>
@@ -236,7 +236,7 @@
         <!-- AI matrix -->
         <div style="position:absolute;left:32px;top:163px;width:1256px;display:flex;justify-content:center;">
           <div style="position:relative;width:800px;">
-            <div class="fg-img" style="width:800px;height:720px;background:#222524;border:1px solid #4A4D4B;">
+            <div class="fg-img" style="width:800px;height:720px;border:1px solid #4A4D4B;">
               <img src="assets/fig-ai-ideation.jpg" alt="AI ideation matrix · 90 thumbnails" >
             </div>
             ${cap(0, 730, 800, 'FIG.08B · AI IDEATION MATRIX', 'N=90 · MIDJOURNEY + CLAUDE')}
@@ -319,7 +319,7 @@
         ['assets/fig-v3-mdf.jpg','V3 · CNC MDF','FINAL VISUAL + ERGONOMIC PROTOTYPE','Production intent: ABS blow mold shell + TIG welded aluminum frame.','[WEEK 09 · SENIOR STUDIO II]'],
       ].map((b, i) => `
         <div style="position:absolute;left:${300 + i * 446.67}px;top:780px;width:426.67px;">
-          <div class="fg-img" style="width:426.67px;height:320px;background:#222524;border:${i === 2 ? '1px solid #4A4D4B' : 'none'};">
+          <div class="fg-img" style="width:426.67px;height:320px;border:${i === 2 ? '1px solid #4A4D4B' : 'none'};">
             <img src="${b[0]}" alt="${b[1]}">
           </div>
           <div class="mono" style="font-size:10px;color:#D4A24C;letter-spacing:0.2em;margin-top:14px;">${b[1]}</div>
@@ -332,21 +332,21 @@
       <!-- PART B · DETAIL GRID (tall left + 2 stacked right) -->
       <!-- LEFT TALL FIG.13 -->
       <div style="position:absolute;left:300px;top:1244px;width:656px;">
-        <div class="fg-img" style="width:656px;height:1029px;background:#222524;">
+        <div class="fg-img" style="width:656px;height:1029px;">
           <img src="assets/fig-cnc-process.jpg" alt="CNC in progress · MDF shell">
         </div>
         ${cap(0, 1039, 656, 'FIG.13 · PROCESS · CNC IN PROGRESS', 'MDF SHELL')}
       </div>
       <!-- RIGHT TOP FIG.14 -->
       <div style="position:absolute;left:970px;top:1244px;width:650px;">
-        <div class="fg-img" style="width:650px;height:487px;background:#222524;">
+        <div class="fg-img" style="width:650px;height:487px;">
           <img src="assets/fig-tool-storage.jpg" alt="Tool storage test · V2 phase">
         </div>
         ${cap(0, 497, 650, 'FIG.14 · TOOL STORAGE TEST · V2 PHASE', 'CAD PRINTOUT ON TABLE')}
       </div>
       <!-- RIGHT BOTTOM FIG.12 -->
       <div style="position:absolute;left:970px;top:1785px;width:650px;">
-        <div class="fg-img" style="width:650px;height:488px;background:#222524;">
+        <div class="fg-img" style="width:650px;height:488px;">
           <img src="assets/fig-detail-top.png" alt="Detail · top surface">
         </div>
         ${cap(0, 498, 650, 'FIG.12 · DETAIL · TOP SURFACE', 'TOOL STORAGE ZONE')}
@@ -442,7 +442,7 @@
       </div>
 
       <!-- Manufacturing reference image (full-width, matching Figma) -->
-      <div class="fg-img" style="position:absolute;left:300px;top:1100px;width:1320px;height:477px;background:#1A1C1B;">
+      <div class="fg-img" style="position:absolute;left:300px;top:1100px;width:1320px;height:477px;">
         <img src="assets/fig-mfg-1.png" alt="Manufacturing reference · exploded view" >
       </div>
 
@@ -493,7 +493,7 @@
 
       <!-- Exploded image -->
       <div style="position:absolute;left:300px;top:223px;width:1006px;">
-        <div class="fg-img" style="width:1006px;height:566px;background:#222524;">
+        <div class="fg-img" style="width:1006px;height:566px;">
           <img src="assets/fig-cmf-exploded.jpg" alt="Annotated exploded CAD" >
         </div>
         ${cap(0, 576, 1006, 'FIG.20 · ANNOTATED EXPLODED', 'CAD LAYER BREAKDOWN')}
@@ -520,7 +520,7 @@
           ['fig-cmf-detail-v5.png','CMF · Mystic Dark Forest v2'],
           ['fig-cmf-detail-v6.png','CMF · Rustic Cabin'],
         ].map(([src, alt]) => `
-          <div class="fg-img" style="aspect-ratio:443/249;background:#222524;">
+          <div class="fg-img" style="aspect-ratio:443/249;">
             <img src="assets/${src}" alt="${alt}">
           </div>
         `).join('')}
@@ -536,7 +536,7 @@
 
       <!-- Final in-context render -->
       <div style="position:absolute;left:300px;top:223px;width:1280px;">
-        <div class="fg-img" style="width:1280px;height:730px;background:#222524;">
+        <div class="fg-img" style="width:1280px;height:730px;">
           <img src="assets/fig-final-incontext.png" alt="Final in-context · garage / user scale">
         </div>
         ${cap(0, 740, 1320, 'FIG.21 · FINAL IN-CONTEXT RENDER', 'GARAGE / USER SCALE')}
@@ -544,14 +544,14 @@
 
       <!-- Physical prototype hero shots · relocated from former §07 detail grid -->
       <div style="position:absolute;left:300px;top:1043px;width:650px;">
-        <div class="fg-img" style="width:650px;height:502px;background:#222524;">
-          <img src="assets/fig-final-hero34.png" alt="Hero 3/4 angle · CNC MDF" style="background:#fff;">
+        <div class="fg-img" style="width:650px;height:502px;">
+          <img src="assets/fig-final-hero34.png" alt="Hero 3/4 angle · CNC MDF">
         </div>
         ${cap(0, 512, 650, 'FIG.22 · HERO · 3/4 ANGLE', 'CNC MDF')}
       </div>
       <div style="position:absolute;left:970px;top:1043px;width:650px;">
-        <div class="fg-img" style="width:650px;height:489px;background:#222524;">
-          <img src="assets/fig-final-detail-top.png" alt="Detail top surface · tool storage zone" style="background:#fff;">
+        <div class="fg-img" style="width:650px;height:489px;">
+          <img src="assets/fig-final-detail-top.png" alt="Detail top surface · tool storage zone">
         </div>
         ${cap(0, 499, 650, 'FIG.23 · DETAIL · TOP SURFACE', 'TOOL STORAGE ZONE')}
       </div>
