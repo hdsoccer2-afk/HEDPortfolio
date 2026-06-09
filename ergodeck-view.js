@@ -494,7 +494,7 @@
       <!-- Exploded image -->
       <div style="position:absolute;left:300px;top:223px;width:1006px;">
         <div class="fg-img">
-          <img src="assets/fig-cmf-exploded.jpg" alt="Annotated exploded CAD">
+          <img src="assets/fig-cmf-exploded.png" alt="Annotated exploded CAD">
         </div>
         ${cap(0, 576, 1006, 'FIG.20 · ANNOTATED EXPLODED', 'CAD LAYER BREAKDOWN')}
       </div>
