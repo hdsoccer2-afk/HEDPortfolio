@@ -110,10 +110,15 @@
         </ul>
       </div>
 
-      <!-- 4 × Image240 (M-AUTO benchmark) · 357×268 each, gap 4 -->
-      ${[0,1,2,3].map(i => `
+      <!-- 4 benchmark images · 357×268 each, gap 4 -->
+      ${[
+        ['fig-image240.png',   'M-AUTO 42.5" CREEPER · benchmark'],
+        ['fig-image247.png',   'MECHANIC PLASTIC CREEPER · benchmark'],
+        ['fig-image82.png',    'THERMOGRAPHIC LOAD MAP · supine'],
+        ['fig-image92.png',    'ERGONOMIC SKELETON DIAGRAM · supine'],
+      ].map(([src, alt], i) => `
         <div class="fg-img" style="position:absolute;left:${300 + i * 361}px;top:520px;width:357px;height:268px;">
-          <img src="assets/fig-image240.png" alt="M-AUTO 42.5&quot; CREEPER benchmark">
+          <img src="assets/${src}" alt="${alt}" style="object-fit:contain;background:#222524;">
         </div>
       `).join('')}
     </div>`;
@@ -507,9 +512,16 @@
 
       <!-- 6 CMF detail thumbs -->
       <div style="position:absolute;left:300px;top:830px;width:1320px;display:grid;grid-template-columns:repeat(6, 1fr);gap:8px;">
-        ${[0,1,2,3,4,5].map(i => `
+        ${[
+          ['fig-cmf-detail-v1.png','CMF · Orange / Black'],
+          ['fig-cmf-detail-v2.png','CMF · Brown / Tan'],
+          ['fig-cmf-detail-v3.png','CMF · Dark Green'],
+          ['fig-cmf-detail-v4.png','CMF · Mystic Dark Forest'],
+          ['fig-cmf-detail-v5.png','CMF · Mystic Dark Forest v2'],
+          ['fig-cmf-detail-v6.png','CMF · Rustic Cabin'],
+        ].map(([src, alt]) => `
           <div class="fg-img" style="aspect-ratio:443/249;background:#222524;">
-            <img src="assets/fig-cmf-detail.png" alt="CMF detail ${i + 1}">
+            <img src="assets/${src}" alt="${alt}">
           </div>
         `).join('')}
       </div>
