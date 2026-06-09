@@ -26,7 +26,7 @@
   // ── Image with caption border below ──
   function figImg(left, top, w, h, src, alt, capAccent, capGray, opts) {
     const bg = (opts && opts.bg) ? opts.bg : 'transparent';
-    const fit = (opts && opts.fit) ? opts.fit : 'cover';
+    const fit = (opts && opts.fit) ? opts.fit : 'none';
     const transform = (opts && opts.transform) ? opts.transform : '';
     return `
       <div class="fg-img-wrap" style="left:${left}px;top:${top}px;width:${w}px;">
@@ -118,7 +118,7 @@
         ['fig-image92.png',    'ERGONOMIC SKELETON DIAGRAM · supine'],
       ].map(([src, alt], i) => `
         <div class="fg-img" style="position:absolute;left:${300 + i * 361}px;top:520px;width:357px;height:268px;">
-          <img src="assets/${src}" alt="${alt}" style="object-fit:contain;background:#222524;">
+          <img src="assets/${src}" alt="${alt}" >
         </div>
       `).join('')}
     </div>`;
@@ -237,7 +237,7 @@
         <div style="position:absolute;left:32px;top:163px;width:1256px;display:flex;justify-content:center;">
           <div style="position:relative;width:800px;">
             <div class="fg-img" style="width:800px;height:720px;background:#222524;border:1px solid #4A4D4B;">
-              <img src="assets/fig-ai-ideation.jpg" alt="AI ideation matrix · 90 thumbnails" style="object-fit:contain;background:#222524;">
+              <img src="assets/fig-ai-ideation.jpg" alt="AI ideation matrix · 90 thumbnails" >
             </div>
             ${cap(0, 730, 800, 'FIG.08B · AI IDEATION MATRIX', 'N=90 · MIDJOURNEY + CLAUDE')}
           </div>
@@ -393,7 +393,7 @@
       <!-- Two col: dimensions / tech spec -->
       <div style="position:absolute;left:300px;top:204px;width:648px;">
         <div class="fg-img" style="width:648px;height:486px;background:#fff;border:1px solid #4A4D4B;display:flex;align-items:center;justify-content:center;">
-          <img src="assets/fig-dimensions.png" alt="Dimensioned drawing" style="object-fit:contain;background:#fff;width:auto;height:100%;">
+          <img src="assets/fig-dimensions.png" alt="Dimensioned drawing" style="background:#fff;">
         </div>
         ${cap(0, 496, 648, 'FIG.10 · DIMENSIONED DRAWING', 'SOLIDWORKS')}
       </div>
@@ -443,7 +443,7 @@
 
       <!-- Manufacturing reference image (full-width, matching Figma) -->
       <div class="fg-img" style="position:absolute;left:300px;top:1100px;width:1320px;height:477px;background:#1A1C1B;">
-        <img src="assets/fig-mfg-1.png" alt="Manufacturing reference · exploded view" style="object-fit:cover;">
+        <img src="assets/fig-mfg-1.png" alt="Manufacturing reference · exploded view" >
       </div>
 
       <!-- KEY SPECS STRIP -->
@@ -465,14 +465,14 @@
       <div style="position:absolute;left:300px;top:40px;width:1320px;height:340px;display:grid;grid-template-columns:1fr 80px 1fr;gap:24px;align-items:center;">
         <div>
           <div class="fg-img" style="width:100%;height:300px;background:#fff;border:1px solid #4A4D4B;">
-            <img src="assets/fig-cad-v1.png" alt="V1 CAD" style="object-fit:contain;background:#fff;">
+            <img src="assets/fig-cad-v1.png" alt="V1 CAD" style="background:#fff;">
           </div>
           <div class="fg-cap-inline"><span class="fg-cap-a">V1 CAD</span><span class="fg-cap-g">RHINO / SOLIDWORKS</span></div>
         </div>
         <div class="mono" style="font-size:36px;color:#D4A24C;text-align:center;">→</div>
         <div>
           <div class="fg-img" style="width:100%;height:300px;background:#fff;border:1px solid #4A4D4B;">
-            <img src="assets/fig-cad-v3.png" alt="V3 CAD" style="object-fit:contain;background:#fff;">
+            <img src="assets/fig-cad-v3.png" alt="V3 CAD" style="background:#fff;">
           </div>
           <div class="fg-cap-inline"><span class="fg-cap-a">V3 CAD</span><span class="fg-cap-g">FINAL GEOMETRY</span></div>
         </div>
@@ -494,7 +494,7 @@
       <!-- Exploded image -->
       <div style="position:absolute;left:300px;top:223px;width:1006px;">
         <div class="fg-img" style="width:1006px;height:566px;background:#222524;">
-          <img src="assets/fig-cmf-exploded.jpg" alt="Annotated exploded CAD" style="object-fit:cover;">
+          <img src="assets/fig-cmf-exploded.jpg" alt="Annotated exploded CAD" >
         </div>
         ${cap(0, 576, 1006, 'FIG.20 · ANNOTATED EXPLODED', 'CAD LAYER BREAKDOWN')}
       </div>
@@ -545,13 +545,13 @@
       <!-- Physical prototype hero shots · relocated from former §07 detail grid -->
       <div style="position:absolute;left:300px;top:1043px;width:650px;">
         <div class="fg-img" style="width:650px;height:502px;background:#222524;">
-          <img src="assets/fig-final-hero34.png" alt="Hero 3/4 angle · CNC MDF" style="object-fit:contain;background:#fff;">
+          <img src="assets/fig-final-hero34.png" alt="Hero 3/4 angle · CNC MDF" style="background:#fff;">
         </div>
         ${cap(0, 512, 650, 'FIG.22 · HERO · 3/4 ANGLE', 'CNC MDF')}
       </div>
       <div style="position:absolute;left:970px;top:1043px;width:650px;">
         <div class="fg-img" style="width:650px;height:489px;background:#222524;">
-          <img src="assets/fig-final-detail-top.png" alt="Detail top surface · tool storage zone" style="object-fit:contain;background:#fff;">
+          <img src="assets/fig-final-detail-top.png" alt="Detail top surface · tool storage zone" style="background:#fff;">
         </div>
         ${cap(0, 499, 650, 'FIG.23 · DETAIL · TOP SURFACE', 'TOOL STORAGE ZONE')}
       </div>

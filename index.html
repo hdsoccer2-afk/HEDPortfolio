@@ -544,7 +544,7 @@ function ThermoWaveView() {
   const slot = (label, ratio) => {
     const src = (typeof THERMO_IMG !== 'undefined') ? THERMO_IMG[label] : null;
     const ph = `<div class="mono text-[10px] text-center px-3 leading-relaxed" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;color:var(--text-3);">[IMAGE — ${label}]</div>`;
-    const img = src ? `<img src="${src}" alt="ThermoWave — ${label}" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1;">` : '';
+    const img = src ? `<img src="${src}" alt="ThermoWave — ${label}" onerror="this.remove()" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;width:auto;height:auto;z-index:1;">` : '';
     return `<div class="img-slot" data-slot-label="ThermoWave — ${label}" style="aspect-ratio:${ratio};">${ph}${img}</div>`;
   };
 
@@ -658,7 +658,7 @@ function ThermoWaveView() {
         </div>
         <div class="img-slot" data-slot-label="ThermoWave — Positioning Matrix" style="aspect-ratio:16/9;">
           <div class="mono text-[10px] text-center px-4 leading-relaxed" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;color:var(--text-3);">[POSITIONING MATRIX — add assets/thermo-matrix.png]<br>PRICE × FORM · BLUE-OCEAN ZONE</div>
-          <img src="assets/thermo-matrix.png" alt="ThermoWave — positioning matrix" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1;">
+          <img src="assets/thermo-matrix.png" alt="ThermoWave — positioning matrix" onerror="this.remove()" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;width:auto;height:auto;z-index:1;">
         </div>
         <div class="prov mt-3">[N=14 / RETAIL Q4 / AMAZON · WILLIAMS SONOMA · MFR]</div>
       </div>
@@ -993,7 +993,7 @@ function WeldedStoolView() {
               background-size: 32px 32px, 32px 32px, auto;">
             <img src="assets/welded-stool-angle.png"
                  alt="Welded Stool — angled CAD render"
-                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; padding:24px;">
+                 style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-width:calc(100% - 48px); max-height:calc(100% - 48px); width:auto; height:auto; z-index:1;">
             <div class="absolute top-3 left-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">ISO</div>
             <div class="absolute top-3 right-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">VIEW · 01</div>
           </div>
@@ -1012,7 +1012,7 @@ function WeldedStoolView() {
               background-size: 32px 32px, 32px 32px, auto;">
             <img src="assets/welded-stool-side.png"
                  alt="Welded Stool — side profile CAD render"
-                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; padding:24px;">
+                 style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-width:calc(100% - 48px); max-height:calc(100% - 48px); width:auto; height:auto; z-index:1;">
             <div class="absolute top-3 left-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">ELEV</div>
             <div class="absolute top-3 right-3 mono text-[9px] text-text-3 tracking-[0.2em] uppercase z-[2]">VIEW · 02</div>
           </div>
@@ -1086,7 +1086,7 @@ function WeldedStoolView() {
       <!-- Bend diagram — the dimensioned drawing the BOM tables describe -->
       <div class="group fade-up mb-10">
         <div class="img-slot" style="aspect-ratio:1261/744;background:#f5f3ee;">
-          <img src="assets/welded-stool-bend.png" alt="Welded Stool — centerline bend diagram, tube + sheet stock" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1;">
+          <img src="assets/welded-stool-bend.png" alt="Welded Stool — centerline bend diagram, tube + sheet stock" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;width:auto;height:auto;z-index:1;">
         </div>
         <div class="fig-caption">
           <span><span class="fig-num">FIG.29</span> · BEND DIAGRAM</span>
@@ -1236,7 +1236,7 @@ function WeldedStoolView() {
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="group fade-up" style="transition-delay:0ms;">
           <div class="img-slot aspect-[3/4]">
-            <img src="assets/welded-stool-finished-1.jpg" alt="Welded Stool — 3/4 · SEATED" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+            <img src="assets/welded-stool-finished-1.jpg" alt="Welded Stool — 3/4 · SEATED" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;width:auto;height:auto;z-index:1;">
           </div>
           <div class="fig-caption">
             <span><span class="fig-num">FIG.30</span> · 3/4 · SEATED</span>
@@ -1245,7 +1245,7 @@ function WeldedStoolView() {
         </div>
         <div class="group fade-up" style="transition-delay:60ms;">
           <div class="img-slot aspect-[3/4]">
-            <img src="assets/welded-stool-finished-2.jpg" alt="Welded Stool — FRONT" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+            <img src="assets/welded-stool-finished-2.jpg" alt="Welded Stool — FRONT" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;width:auto;height:auto;z-index:1;">
           </div>
           <div class="fig-caption">
             <span><span class="fig-num">FIG.31</span> · FRONT</span>
@@ -1254,7 +1254,7 @@ function WeldedStoolView() {
         </div>
         <div class="group fade-up" style="transition-delay:120ms;">
           <div class="img-slot aspect-[3/4]">
-            <img src="assets/welded-stool-finished-3.jpg" alt="Welded Stool — 3/4 · DISTANT" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+            <img src="assets/welded-stool-finished-3.jpg" alt="Welded Stool — 3/4 · DISTANT" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;width:auto;height:auto;z-index:1;">
           </div>
           <div class="fig-caption">
             <span><span class="fig-num">FIG.32</span> · 3/4 · DISTANT</span>
@@ -1263,7 +1263,7 @@ function WeldedStoolView() {
         </div>
         <div class="group fade-up" style="transition-delay:180ms;">
           <div class="img-slot aspect-[3/4]">
-            <img src="assets/welded-stool-finished-4.jpg" alt="Welded Stool — FRONT · ELEV" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+            <img src="assets/welded-stool-finished-4.jpg" alt="Welded Stool — FRONT · ELEV" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;width:auto;height:auto;z-index:1;">
           </div>
           <div class="fig-caption">
             <span><span class="fig-num">FIG.33</span> · FRONT · ELEV</span>
@@ -1285,7 +1285,7 @@ function WeldedStoolView() {
         <div class="md:col-span-8">
           <div class="group fade-up">
             <div class="img-slot aspect-[4/5]">
-              <img src="assets/welded-stool-weld-detail.png" alt="Welded Stool — weld cluster at base convergence" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;">
+              <img src="assets/welded-stool-weld-detail.png" alt="Welded Stool — weld cluster at base convergence" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-width:100%; max-height:100%; width:auto; height:auto; z-index:1;">
             </div>
             <div class="fig-caption">
               <span><span class="fig-num">FIG.11</span> · BASE CONVERGENCE</span>
