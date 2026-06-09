@@ -479,6 +479,14 @@
       </div>
     </div>`;
 
+  // ── CALLOUTS · full-width annotated render (between §07 and §08) ──
+  const S_CALLOUTS = `
+    <div class="fg-section" style="top:10550px;height:829px;">
+      <div style="position:absolute;left:300px;top:40px;width:1320px;">
+        <img src="assets/fig-cmf-callouts.png" alt="ErgoDeck annotated callouts render" style="display:block;width:100%;height:auto;">
+      </div>
+    </div>`;
+
   // ── § 08 CMF (top ~11220) ──────────────────────────────────────
   const SWATCHES = [
     ['#7F807D','PRIMARY · NEUTRAL GRAY','#7F807D · ABS STRUCTURAL SHELL', false],
@@ -486,7 +494,7 @@
     ['#2E3532','TERTIARY · DARK TEAL','#2E3532 · TPE BUMPER · HARDWARE', false],
   ];
   const S08 = `
-    <div class="fg-section" style="top:10460px;height:1400px;">
+    <div class="fg-section" style="top:11419px;height:1400px;">
       ${sectionHead(300, 63, 1320,
         '§ 08 · CMF',
         '<span class="ital">Color</span>, material, finish.')}
@@ -529,7 +537,7 @@
 
   // ── § 09 OUTCOME (top 12564, height 1657.5) ────────────────────
   const S09 = `
-    <div class="fg-section" style="top:11900px;height:2240px;">
+    <div class="fg-section" style="top:12859px;height:2240px;">
       ${sectionHead(300, 63, 1320,
         '§ 09 · OUTCOME',
         '<span class="ital">Prototype</span> validated. Partners wanted to explore commercial fabrication')}
@@ -620,6 +628,7 @@
           ${S05}
           ${S06}
           ${S07}
+          ${S_CALLOUTS}
           ${S08}
           ${S09}
         </div>

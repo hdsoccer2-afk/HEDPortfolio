@@ -120,11 +120,11 @@
      ErgoDeck — 1920×~14000 absolute-positioned figma canvas
      ────────────────────────────────────────────────────────────── */
   .fg-stage { width: 100%; overflow: hidden; background: var(--bg); --fg-scale: 1; }
-  .fg-canvas { width: 1920px; height: 14200px; position: relative; margin: 0 auto;
+  .fg-canvas { width: 1920px; height: 15300px; position: relative; margin: 0 auto;
     transform: scale(var(--fg-scale)); transform-origin: top left;
     /* keep stage height consistent with scaled canvas */
   }
-  .fg-stage { height: calc(14200px * var(--fg-scale)); }
+  .fg-stage { height: calc(15300px * var(--fg-scale)); }
   /* offset canvas horizontally so it stays centered after scale */
   .fg-canvas { left: calc((100vw - 1920px * var(--fg-scale)) / 2); position: relative; }
 
