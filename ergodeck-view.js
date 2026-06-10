@@ -117,8 +117,8 @@
         ['fig-image82.png',    'THERMOGRAPHIC LOAD MAP · supine'],
         ['fig-image92.png',    'ERGONOMIC SKELETON DIAGRAM · supine'],
       ].map(([src, alt], i) => `
-        <div class="fg-img" style="position:absolute;left:${300 + i * 361}px;top:520px;width:357px;height:268px;">
-          <img src="assets/${src}" alt="${alt}" >
+        <div style="position:absolute;left:${300 + i * 361}px;top:520px;width:357px;">
+          <img src="assets/${src}" alt="${alt}" style="display:block;width:100%;height:auto;">
         </div>
       `).join('')}
     </div>`;
@@ -159,8 +159,8 @@
       </div>
 
       <!-- Square image · right edge -->
-      <div class="fg-img" style="position:absolute;left:1494px;top:100px;width:368px;height:368px;background:#222524;">
-        <img src="assets/fig-insight-image.png" alt="Mechanic working under car · insight">
+      <div style="position:absolute;left:1494px;top:100px;width:368px;background:#222524;">
+        <img src="assets/fig-insight-image.png" alt="Mechanic working under car · insight" style="display:block;width:100%;height:auto;">
       </div>
     </div>`;
 
@@ -180,8 +180,8 @@
       <!-- 3 images row -->
       ${S03_IMGS.map((r, i) => `
         <div style="position:absolute;left:${300 + i * 445}px;top:204px;width:430px;">
-          <div class="fg-img" style="width:430px;height:320px;">
-            <img src="${r[0]}" alt="${r[1]}">
+          <div style="width:430px;">
+            <img src="${r[0]}" alt="${r[1]}" style="display:block;width:100%;height:auto;">
           </div>
           ${cap(0, 330, 430, r[1], r[2])}
         </div>
@@ -219,8 +219,8 @@
         'Hand and machine — two modes of divergence.')}
 
       <!-- Big sketch image -->
-      <div class="fg-img" style="position:absolute;left:312px;top:204px;width:1296px;height:822px;">
-        <img src="assets/fig-sketches.jpg" alt="Sketch compilation">
+      <div style="position:absolute;left:312px;top:204px;width:1296px;">
+        <img src="assets/fig-sketches.jpg" alt="Sketch compilation" style="display:block;width:100%;height:auto;">
       </div>
 
       <!-- AI MidJourney panel -->
@@ -236,8 +236,8 @@
         <!-- AI matrix -->
         <div style="position:absolute;left:32px;top:163px;width:1256px;display:flex;justify-content:center;">
           <div style="position:relative;width:800px;">
-            <div class="fg-img" style="width:800px;height:720px;border:1px solid #4A4D4B;">
-              <img src="assets/fig-ai-ideation.jpg" alt="AI ideation matrix · 90 thumbnails" >
+            <div style="width:800px;border:1px solid #4A4D4B;">
+              <img src="assets/fig-ai-ideation.jpg" alt="AI ideation matrix · 90 thumbnails" style="display:block;width:100%;height:auto;">
             </div>
             ${cap(0, 730, 800, 'FIG.08B · AI IDEATION MATRIX', 'N=90 · MIDJOURNEY + CLAUDE')}
           </div>
@@ -319,8 +319,8 @@
         ['assets/fig-v3-mdf.jpg','V3 · CNC MDF','FINAL VISUAL + ERGONOMIC PROTOTYPE','Production intent: ABS blow mold shell + TIG welded aluminum frame.','[WEEK 09 · SENIOR STUDIO II]'],
       ].map((b, i) => `
         <div style="position:absolute;left:${300 + i * 446.67}px;top:780px;width:426.67px;">
-          <div class="fg-img" style="width:426.67px;height:320px;border:${i === 2 ? '1px solid #4A4D4B' : 'none'};">
-            <img src="${b[0]}" alt="${b[1]}">
+          <div style="width:426.67px;border:${i === 2 ? '1px solid #4A4D4B' : 'none'};">
+            <img src="${b[0]}" alt="${b[1]}" style="display:block;width:100%;height:auto;">
           </div>
           <div class="mono" style="font-size:10px;color:#D4A24C;letter-spacing:0.2em;margin-top:14px;">${b[1]}</div>
           <div class="mono" style="font-size:10px;color:#FAFAFA;letter-spacing:0.15em;margin-top:6px;">${b[2]}</div>
@@ -339,15 +339,15 @@
       </div>
       <!-- RIGHT TOP FIG.14 -->
       <div style="position:absolute;left:970px;top:1244px;width:650px;">
-        <div class="fg-img" style="width:650px;height:487px;">
-          <img src="assets/fig-tool-storage.jpg" alt="Tool storage test · V2 phase">
+        <div style="width:650px;">
+          <img src="assets/fig-tool-storage.jpg" alt="Tool storage test · V2 phase" style="display:block;width:100%;height:auto;">
         </div>
         ${cap(0, 497, 650, 'FIG.14 · TOOL STORAGE TEST · V2 PHASE', 'CAD PRINTOUT ON TABLE')}
       </div>
       <!-- RIGHT BOTTOM FIG.12 -->
       <div style="position:absolute;left:970px;top:1785px;width:650px;">
-        <div class="fg-img" style="width:650px;height:488px;">
-          <img src="assets/fig-detail-top.png" alt="Detail · top surface">
+        <div style="width:650px;">
+          <img src="assets/fig-detail-top.png" alt="Detail · top surface" style="display:block;width:100%;height:auto;">
         </div>
         ${cap(0, 498, 650, 'FIG.12 · DETAIL · TOP SURFACE', 'TOOL STORAGE ZONE')}
       </div>
@@ -392,8 +392,8 @@
 
       <!-- Two col: dimensions / tech spec -->
       <div style="position:absolute;left:300px;top:204px;width:648px;">
-        <div class="fg-img" style="width:648px;height:486px;border:1px solid #4A4D4B;display:flex;align-items:center;justify-content:center;">
-          <img src="assets/fig-dimensions.png" alt="Dimensioned drawing">
+        <div style="width:648px;border:1px solid #4A4D4B;">
+          <img src="assets/fig-dimensions.png" alt="Dimensioned drawing" style="display:block;width:100%;height:auto;">
         </div>
         ${cap(0, 496, 648, 'FIG.10 · DIMENSIONED DRAWING', 'SOLIDWORKS')}
       </div>
@@ -442,8 +442,8 @@
       </div>
 
       <!-- Manufacturing reference image (full-width, matching Figma) -->
-      <div class="fg-img" style="position:absolute;left:300px;top:1100px;width:1320px;height:477px;">
-        <img src="assets/fig-mfg-1.png" alt="Manufacturing reference · exploded view" >
+      <div style="position:absolute;left:300px;top:1100px;width:1320px;">
+        <img src="assets/fig-mfg-1.png" alt="Manufacturing reference · exploded view" style="display:block;width:100%;height:auto;">
       </div>
 
       <!-- KEY SPECS STRIP -->
@@ -542,24 +542,24 @@
         '§ 09 · OUTCOME',
         '<span class="ital">Prototype</span> validated. Partners wanted to explore commercial fabrication')}
 
-      <!-- Final in-context render -->
+      <!-- Final in-context render — FIG.21 -->
       <div style="position:absolute;left:300px;top:223px;width:1280px;">
-        <div class="fg-img" style="width:1280px;height:730px;">
-          <img src="assets/fig-final-incontext.png" alt="Final in-context · garage / user scale">
+        <div style="width:1280px;">
+          <img src="assets/fig-final-incontext.png" alt="Final in-context · garage / user scale" style="display:block;width:100%;height:auto;">
         </div>
         ${cap(0, 740, 1320, 'FIG.21 · FINAL IN-CONTEXT RENDER', 'GARAGE / USER SCALE')}
       </div>
 
-      <!-- Physical prototype hero shots · relocated from former §07 detail grid -->
-      <div style="position:absolute;left:300px;top:1043px;width:650px;">
-        <div class="fg-img" style="width:650px;height:502px;">
-          <img src="assets/fig-final-hero34.png" alt="Hero 3/4 angle · CNC MDF">
+      <!-- Physical prototype hero shots — FIG.22 + FIG.23 -->
+      <div style="position:absolute;left:300px;top:1003px;width:650px;">
+        <div style="width:650px;">
+          <img src="assets/fig-final-hero34.png" alt="Hero 3/4 angle · CNC MDF" style="display:block;width:100%;height:auto;">
         </div>
-        ${cap(0, 512, 650, 'FIG.22 · HERO · 3/4 ANGLE', 'CNC MDF')}
+        ${cap(0, 502, 650, 'FIG.22 · HERO · 3/4 ANGLE', 'CNC MDF')}
       </div>
-      <div style="position:absolute;left:970px;top:1043px;width:650px;">
-        <div class="fg-img" style="width:650px;height:489px;">
-          <img src="assets/fig-final-detail-top.png" alt="Detail top surface · tool storage zone">
+      <div style="position:absolute;left:970px;top:1003px;width:650px;">
+        <div style="width:650px;">
+          <img src="assets/fig-final-detail-top.png" alt="Detail top surface · tool storage zone" style="display:block;width:100%;height:auto;">
         </div>
         ${cap(0, 499, 650, 'FIG.23 · DETAIL · TOP SURFACE', 'TOOL STORAGE ZONE')}
       </div>
