@@ -117,8 +117,8 @@
         ['fig-image82.png',    'THERMOGRAPHIC LOAD MAP · supine'],
         ['fig-image92.png',    'ERGONOMIC SKELETON DIAGRAM · supine'],
       ].map(([src, alt], i) => `
-        <div style="position:absolute;left:${300 + i * 361}px;top:520px;width:357px;">
-          <img src="assets/${src}" alt="${alt}" style="display:block;width:100%;height:auto;">
+        <div style="position:absolute;left:${300 + i * 361}px;top:520px;width:357px;height:268px;overflow:hidden;">
+          <img src="assets/${src}" alt="${alt}" style="display:block;width:100%;height:100%;object-fit:cover;">
         </div>
       `).join('')}
     </div>`;
@@ -501,9 +501,7 @@
 
       <!-- Exploded image -->
       <div style="position:absolute;left:300px;top:223px;width:1006px;">
-        <div>
-          <img src="assets/fig-cmf-exploded.png" alt="Annotated exploded CAD" style="display:block;width:100%;height:auto;">
-        </div>
+        <img src="assets/fig-cmf-exploded.png" alt="Annotated exploded CAD" style="display:block;width:100%;height:auto;">
         ${cap(0, 576, 1006, 'FIG.20 · ANNOTATED EXPLODED', 'CAD LAYER BREAKDOWN')}
       </div>
 
