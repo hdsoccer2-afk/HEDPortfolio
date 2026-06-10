@@ -550,19 +550,6 @@
         ${cap(0, 740, 1320, 'FIG.21 · FINAL IN-CONTEXT RENDER', 'GARAGE / USER SCALE')}
       </div>
 
-      <!-- Physical prototype hero shots — FIG.22 + FIG.23 -->
-      <div style="position:absolute;left:300px;top:1003px;width:650px;">
-        <div style="width:650px;">
-          <img src="assets/fig-final-hero34.png" alt="Hero 3/4 angle · CNC MDF" style="display:block;width:100%;height:auto;">
-        </div>
-        ${cap(0, 502, 650, 'FIG.22 · HERO · 3/4 ANGLE', 'CNC MDF')}
-      </div>
-      <div style="position:absolute;left:970px;top:1003px;width:650px;">
-        <div style="width:650px;">
-          <img src="assets/fig-final-detail-top.png" alt="Detail top surface · tool storage zone" style="display:block;width:100%;height:auto;">
-        </div>
-        ${cap(0, 499, 650, 'FIG.23 · DETAIL · TOP SURFACE', 'TOOL STORAGE ZONE')}
-      </div>
 
       <!-- Status block -->
       <div style="position:absolute;left:300px;top:1620px;width:1320px;border:1px solid #4A4D4B;padding:32px;">
